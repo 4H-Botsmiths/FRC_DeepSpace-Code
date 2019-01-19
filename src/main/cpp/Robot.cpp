@@ -13,12 +13,6 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-void Robot::RobotInit() {
-	m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-	m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-}
-
 /**
  * This function is called every robot packet, no matter the mode. Use
  * this for items like diagnostics that you want ran during disabled,
