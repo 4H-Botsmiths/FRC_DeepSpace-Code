@@ -9,11 +9,17 @@
 
 #include <string>
 
+#include "toggle/toggle.cpp"
+
+#include <array>
+#include <vector>
+#include <functional>
 #include <frc/Spark.h>
 #include <frc/Talon.h>
 #include <frc/Joystick.h>
 #include <frc/Solenoid.h>
 #include <frc/TimedRobot.h>
+#include <frc/XboxController.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/drive/MecanumDrive.h>
 #include <networktables/NetworkTable.h>
@@ -37,7 +43,7 @@ public:
 
 	//limelight variables
     enum limelight_target_enum { //all possible targets we might want to align to
-		FEEDER_HATCH_GROUND, //0
+		FEEDER_HATCH_GROUND,
 		FEEDER_BALL_GROUND_LEFT, FEEDER_BALL_UPPER_LEFT, FEEDER_HATCH_UPPER_LEFT,
 		FEEDER_BALL_GROUND_RIGHT, FEEDER_BALL_UPPER_RIGHT, FEEDER_HATCH_UPPER_RIGHT,
 		ROCKET_BALL_GROUND, ROCKET_BALL_UPPER, ROCKET_HATCH_GROUND, ROCKET_HATCH_UPPER,
@@ -62,9 +68,10 @@ public:
     std::string m_autoSelected;
 
 	//joysticks
-    frc::Joystick left_stick{0};
+    frc::XboxController controller_left { 0 };
+    frc::XboxController controller_right { 1 };
 
-	//drive train motors + drive train
+    //drive train motors + drive train
     frc::Talon drive_NW{0};
     frc::Talon drive_NE{1};
     frc::Talon drive_SE{2};
@@ -72,19 +79,17 @@ public:
     frc::MecanumDrive drive_train{drive_NW, drive_NE, drive_SE, drive_SW};
 
 	//other motors
-    frc::Spark spark_0{4};
-    frc::Spark spark_1{5};
-    frc::Spark spark_2{6};
+    frc::Spark arm { 4 };
 
-	//phenumatics
-    frc::DoubleSolenoid solenoid_0{0, 1};
-    frc::DoubleSolenoid solenoid_1{2, 3};
-    frc::DoubleSolenoid solenoid_2{4, 5};
+    //phenumatics
+    frc::DoubleSolenoid phenumatic_grabber { 0, 1 };
+    frc::DoubleSolenoid phenumatic_climber { 2, 3 };
+    //frc::DoubleSolenoid solenoid_2{4, 5};
 
 	//limelight objects
 	std::shared_ptr<NetworkTable> limelight=nt::NetworkTableInstance::GetDefault().GetTable("limelight");
     limelight_pattern_enum limelight_pipe; //makes sure the current pipeline is of the pattern we want
-    double limelight_area = 0;  //empty defines for current offsets
+    double limelight_area=0;  //empty defines for current offsets
     double limelight_skew=0;
 	double limelight_offset_horz=0;
 	double limelight_offset_vert=0;
