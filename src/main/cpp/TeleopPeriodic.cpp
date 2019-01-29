@@ -3,11 +3,10 @@
 
 void Robot::TeleopPeriodic() {
     drive_train.DriveCartesian(
-        left_stick.GetX(),
-        left_stick.GetY(),
-        left_stick.GetZ());
+        controller_left.GetX(frc::GenericHID::JoystickHand::kLeftHand),
+        controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand),
+        controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand)
+    );
 
-    moveSolenoid(solenoid_0, left_stick.GetRawButtonPressed(1));
-	moveSolenoid(solenoid_1, left_stick.GetRawButtonPressed(2));
-	moveSolenoid(solenoid_2, left_stick.GetRawButtonPressed(3));
+    arm.Set(controller_right.GetX(frc::GenericHID::JoystickHand::kRightHand));
 }

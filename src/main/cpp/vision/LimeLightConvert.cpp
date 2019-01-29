@@ -6,7 +6,7 @@ Robot::limelight_pattern_enum Robot::limelightConvert(Robot::limelight_target_en
         return limelight_pattern_enum::GROUND;
     
     //targets using hatch panel pattern
-    else if ( target==5 || target==6 || target==10 || target==12 || target==14)
+    else if (target==5 || target==6 || target==10 || target==12 || target==14)
         return limelight_pattern_enum::HATCHES;
 
     //targets using the left feeder station upper pattern
