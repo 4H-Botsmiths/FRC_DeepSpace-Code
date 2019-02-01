@@ -9,8 +9,6 @@
 
 #include <string>
 
-#include "toggle/toggle.cpp"
-
 #include <array>
 #include <vector>
 #include <functional>
@@ -39,7 +37,7 @@ public:
     void TestPeriodic() override;
 
 	//helper functions
-    void toggleSolenoid(frc::DoubleSolenoid& solenoid);
+    void toggleSolenoid(frc::DoubleSolenoid& solenoid, bool& state);
 
 	//limelight variables
     enum limelight_target_enum { //all possible targets we might want to align to
@@ -93,7 +91,7 @@ public:
 
     frc::DoubleSolenoid phenumatic_deployer { 6, 7 }; //deploys ramp
 	bool phenumatic_deployer_grabbing=false;
-    int phenumatic_deployer_min=5; //min amount to press "X" to deploy
+    int phenumatic_deployer_min=5; //min amount to press safety to deploy
     int phenumatic_deployer_safety=0; //makes sure that ramps dont deploy on accident
 
     //limelight objects
