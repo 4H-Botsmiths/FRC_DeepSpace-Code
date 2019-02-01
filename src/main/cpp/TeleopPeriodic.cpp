@@ -9,4 +9,13 @@ void Robot::TeleopPeriodic() {
     );
 
     arm.Set(controller_right.GetX(frc::GenericHID::JoystickHand::kRightHand));
+    if (controller_right.GetAButtonPressed()) {
+        phenumatic_grabber_grabbing=(!phenumatic_grabber_grabbing); //inverts state
+        //moveSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
+    }
+    if (controller_right.GetXButtonPressed()) phenumatic_deployer_safety++;
+
+    if (phenumatic_deployer_safety>=phenumatic_deployer_min) {
+        //deplor ramps
+    }
 }

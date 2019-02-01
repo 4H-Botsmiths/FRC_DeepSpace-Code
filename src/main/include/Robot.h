@@ -39,7 +39,7 @@ public:
     void TestPeriodic() override;
 
 	//helper functions
-    void moveSolenoid(frc::DoubleSolenoid& solenoid, bool move);
+    void toggleSolenoid(frc::DoubleSolenoid& solenoid);
 
 	//limelight variables
     enum limelight_target_enum { //all possible targets we might want to align to
@@ -82,11 +82,21 @@ public:
     frc::Spark arm { 4 };
 
     //phenumatics
-    frc::DoubleSolenoid phenumatic_grabber { 0, 1 };
-    frc::DoubleSolenoid phenumatic_climber { 2, 3 };
-    //frc::DoubleSolenoid solenoid_2{4, 5};
+    frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
+    bool phenumatic_grabber_grabbing=false;
 
-	//limelight objects
+    frc::DoubleSolenoid phenumatic_climber { 2, 3 }; //grabs HAB zone
+	bool phenumatic_climber_grabbing=false;
+
+	frc::DoubleSolenoid phenumatic_arm { 4, 5 }; //lowers/raises the lower arm
+	bool phenumatic_arm_grabbing=false;
+
+    frc::DoubleSolenoid phenumatic_deployer { 6, 7 }; //deploys ramp
+	bool phenumatic_deployer_grabbing=false;
+    int phenumatic_deployer_min=5; //min amount to press "X" to deploy
+    int phenumatic_deployer_safety=0; //makes sure that ramps dont deploy on accident
+
+    //limelight objects
 	std::shared_ptr<NetworkTable> limelight=nt::NetworkTableInstance::GetDefault().GetTable("limelight");
     limelight_pattern_enum limelight_pipe; //makes sure the current pipeline is of the pattern we want
     double limelight_area=0;  //empty defines for current offsets
