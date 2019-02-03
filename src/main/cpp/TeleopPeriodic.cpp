@@ -19,7 +19,7 @@ void Robot::TeleopPeriodic() {
     if (!controller_right.GetTriggerAxis(controller_lefthand)>controller_trigger_min) {
         drive_train.DriveCartesian(
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kLeftHand),0.25),
-            Deadzone(controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand), 0.25),
+            Deadzone(-controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand), 0.25),
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand), 0.25)
         );
         if (controller_right.GetXButton())

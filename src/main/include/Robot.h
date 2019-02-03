@@ -83,7 +83,7 @@ public:
     frc::Talon drive_NE{1};
     frc::Talon drive_SE{2};
     frc::Talon drive_SW{3};
-    frc::MecanumDrive drive_train{drive_NW, drive_NE, drive_SE, drive_SW};
+    frc::MecanumDrive drive_train{drive_NW, drive_SW, drive_NE, drive_SE};
 
 	//other motors
     frc::Spark arm { 4 };
@@ -93,7 +93,7 @@ public:
     frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
     bool phenumatic_grabber_grabbing=false;
 
-    frc::DoubleSolenoid phenumatic_endgame { 2, 3 }; //lowers/raises the lower arm
+    frc::DoubleSolenoid phenumatic_endgame { 2, 3 }; //lowers arm and opens ramps at endgame
 	bool phenumatic_endgame_active=false;
 
     int phenumatic_endgame_min=5; //min amount to press safety to deploy
@@ -114,6 +114,7 @@ public:
     double limelight_offset_horz_acceptable=0.5;
     double limelight_offset_vert_acceptable=0.5;
 
+    //modifiers that change how much the bot is moved during auto
     double limelight_area_mult=0.1;
     double limelight_skew_mult=0.1;
     double limelight_offset_horz_mult=0.1;
