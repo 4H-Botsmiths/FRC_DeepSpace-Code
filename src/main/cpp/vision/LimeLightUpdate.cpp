@@ -10,4 +10,6 @@ void Robot::limelightUpdate(Robot::limelight_pattern_enum pattern) {
     limelight_valid=limelight->GetNumber("tv", 0.0);
     limelight_area=limelight->GetNumber("ta", 0.0);
     limelight_skew=limelight->GetNumber("ts", 0.0);
+    limelight_tshort = limelight->GetNumber("tshort", 0.0);
+    limelight_tlong = limelight->GetNumber("tlong", 0.0);
 }

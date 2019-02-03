@@ -16,11 +16,11 @@ CONTROLLER_LEFT:
 void Robot::TeleopPeriodic() {
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
-    if (!controller_right.GetTriggerAxis(controller_lefthand)>controller_trigger_min) {
+    if (!controller_right.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
         drive_train.DriveCartesian(
-            Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kLeftHand),0.25),
-            Deadzone(-controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand), 0.25),
-            Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand), 0.25)
+            Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kLeftHand)),
+            Deadzone(-controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand)),
+            Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand))
         );
         if (controller_right.GetXButton())
             arm.Set(arm_speed);

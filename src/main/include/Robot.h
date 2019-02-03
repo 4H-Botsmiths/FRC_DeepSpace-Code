@@ -39,6 +39,7 @@ public:
 	//helper functions
     void ToggleSolenoid(frc::DoubleSolenoid& solenoid, bool& state);
     double Deadzone(double v, double r); //prevents jitters while not moving
+    double Deadzone(double v); //prevents jitters while not moving (applies default value)
     double Cap(double v, double r); //prevents speed going to high
 
     //limelight variables
@@ -72,7 +73,7 @@ public:
     frc::XboxController controller_left { 0 };
     frc::XboxController controller_right { 1 };
 
-    double controller_trigger_min=0.15; //deadzone for triggers
+    double controller_deadzone=0.1; //deadzone for triggers
 
     //shortens up typing
     frc::GenericHID::JoystickHand controller_lefthand = frc::GenericHID::JoystickHand::kLeftHand;
@@ -107,16 +108,22 @@ public:
     double limelight_valid = 0;
     double limelight_offset_horz = 0;
     double limelight_offset_vert = 0;
+    double limelight_tshort = 0;
+    double limelight_tlong = 0;
 
     //values must be within these ranges to be considered centered
     double limelight_area_acceptable=0.5; 
     double limelight_skew_acceptable=0.5;
     double limelight_offset_horz_acceptable=0.5;
     double limelight_offset_vert_acceptable=0.5;
+    double limelight_tshort_acceptable=0;
+    double limelight_tlong_acceptable = 0;
 
     //modifiers that change how much the bot is moved during auto
     double limelight_area_mult=0.1;
     double limelight_skew_mult=0.1;
     double limelight_offset_horz_mult=0.1;
     double limelight_offset_vert_mult=0.1;
+    double limelight_tshort_mult = 0;
+    double limelight_tlong_mult = 0;
 };
