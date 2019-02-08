@@ -22,11 +22,15 @@ void Robot::TeleopPeriodic() {
             Deadzone(-controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand)),
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand))
         );
-        if (controller_right.GetXButton())
-            arm.Set(arm_speed);
+        if (controller_right.GetXButton()) {
+            //armPutHatch();
+            arm.Set(0.3);
+        }
 
-        else if (controller_right.GetBButton())
-            arm.Set(-arm_speed);
+        else if (controller_right.GetBButton()) {
+            //armGetHatch();
+            arm.Set(-0.3);
+        }
 
         if (controller_right.GetAButtonPressed())
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
@@ -35,6 +39,7 @@ void Robot::TeleopPeriodic() {
 
         if (phenumatic_endgame_safety>=phenumatic_endgame_min) {
             //deploy ramps
+            phenumatic_endgame.Set(frc::DoubleSolenoid::kForward);
         }
     }
     else {
