@@ -2,5 +2,5 @@
 
 void Robot::armGetHatch() {
     if (!armGettingHatch())
-        arm.Set(arm_speed);
+        arm.Set(arm_speed_getting);
 }

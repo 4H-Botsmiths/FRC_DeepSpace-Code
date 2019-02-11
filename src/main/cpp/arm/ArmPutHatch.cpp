@@ -2,5 +2,5 @@
 
 void Robot::armPutHatch() {
     if (!armPuttingHatch())
-        arm.Set(-arm_speed);
+        arm.Set(-arm_speed_putting);
 }

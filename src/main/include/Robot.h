@@ -26,6 +26,9 @@
 #include <networktables/NetworkTableInstance.h>
 #include <frc/smartdashboard/SendableChooser.h>
 
+#include <cscore.h>
+//#include <iostream>
+
 class Robot : public frc::TimedRobot {
 public:
 	//core robot functions
@@ -42,6 +45,7 @@ public:
     double Deadzone(double v, double r); //prevents jitters while not moving
     double Deadzone(double v); //prevents jitters while not moving (applies default value)
     double Cap(double v, double r); //prevents speed going to high
+    void Move(double x, double y, double z); //deals with polarity
 
     //limelight variables
     enum limelight_target_enum { //all possible targets we might want to align to
@@ -73,6 +77,10 @@ public:
     bool armGettingHatch(); //returns true if arm is getting a hatch
     bool armPuttingHatch(); //returns true if arm is placing a hatch
 
+    //file io
+    void fileUpdate(); //updates the params of this class
+    double fileCheckDouble(std::string val, double& org); //check if param is a double
+
    private:
     //smartdashboard objects (unused)
     frc::SendableChooser<std::string> m_chooser;
@@ -99,7 +107,8 @@ public:
 
 	//other motors
     frc::Spark arm { 4 };
-    double arm_speed=0.5; //arm is too fast at 100% speed
+    double arm_speed_putting=0.3; //arm needs more power when it has a gear
+    double arm_speed_getting=0.1; //arm needs less power when it has no gear
 
     //sensors
     //analogpotentiometer, 0 is port, 270 is range and -135 is offset
@@ -112,7 +121,10 @@ public:
     frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
     bool phenumatic_grabber_grabbing=false;
 
-    frc::DoubleSolenoid phenumatic_endgame { 2, 3 }; //lowers arm and opens ramps at endgame
+    frc::DoubleSolenoid phenumatic_ramp { 2, 3 }; //lowers arm and opens ramps at endgame
+	bool phenumatic_ramp_active=false;
+
+    frc::DoubleSolenoid phenumatic_endgame { 4, 5 }; //lowers arm and opens ramps at endgame
 	bool phenumatic_endgame_active=false;
 
     int phenumatic_endgame_min=5; //min amount to press safety to deploy
@@ -147,4 +159,14 @@ public:
     double limelight_offset_vert_mult=0.1;
     double limelight_tshort_mult=0;
     double limelight_tlong_mult=0;
+    double limelight_tdiff_mult=0;
+
+    //camera objects
+    cs::UsbCamera camera_front;
+    cs::UsbCamera camera_back;
+    cs::VideoSink camera_server;
+    bool camera_front_active=true;
+
+    //file system objects
+    std::string filesys_path="/home/lvuser/params.txt"; //path of the parameter file
 };
