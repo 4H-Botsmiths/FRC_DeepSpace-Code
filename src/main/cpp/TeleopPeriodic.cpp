@@ -1,5 +1,7 @@
 #include "Robot.h"
 
+#include <iostream>
+
 /* Controler layout:
 CONTROLLER_RIGHT:
     LEFT_TRIGGER: auto align
@@ -26,8 +28,8 @@ void Robot::TeleopPeriodic() {
         //if (controller_right.GetXButtonPressed()) armPutHatch();
         //else if (controller_right.GetBButtonReleased()) armGetHatch();
         
-        if (controller_right.GetXButton()) arm.Set(0.4);
-        else if (controller_right.GetBButton()) arm.Set(-0.4);
+        if (controller_right.GetXButton()) arm.Set(arm_speed_getting);
+        else if (controller_right.GetBButton()) arm.Set(-arm_speed_putting);
         else arm.Set(0);
 
         if (controller_right.GetAButtonPressed())
@@ -40,8 +42,8 @@ void Robot::TeleopPeriodic() {
             phenumatic_ramp.Set(frc::DoubleSolenoid::kForward); //pushes out ramp
             frc::Timer tmp;
             tmp.Start();
-            while (!tmp.HasPeriodPassed(1.5)) { //wait 1.5 seconds
-                arm.Set(-arm_speed_putting); //makes sure arm goes inside frame
+            while (!tmp.HasPeriodPassed(arm_timer)) { //wait 1.5 seconds
+                arm.Set(-arm_speed_endgame); //makes sure arm goes inside frame
             }
             tmp.Stop(); //stop timer
             arm.Set(0); //stop arm from moving

@@ -67,6 +67,11 @@ void Robot::fileUpdate() {
             else if (name=="controller_deadzone") fileCheckDouble(val, controller_deadzone);
             else if (name=="arm_potentiometer_put") fileCheckDouble(val, arm_potentiometer_put);
             else if (name=="arm_potentiometer_get") fileCheckDouble(val, arm_potentiometer_get);
+            else if (name=="drive_x_offset") fileCheckDouble(val, drive_x_mult);
+            else if (name=="drive_y_offset") fileCheckDouble(val, drive_y_mult);
+            else if (name=="drive_z_offset") fileCheckDouble(val, drive_z_mult);
+            else if (name=="arm_speed_endgame") fileCheckDouble(val, arm_speed_endgame);
+            else if (name=="arm_timer") fileCheckDouble(val, arm_timer);
         }
         filesys.close();
     }

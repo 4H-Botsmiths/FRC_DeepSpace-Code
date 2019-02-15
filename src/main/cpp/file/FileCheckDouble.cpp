@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-double Robot::fileCheckDouble(std::string val, double& org) {
-    try { return std::stod(val); } //if value can be double return it
-    catch (std::exception& e) { return org; }  //else return the passed default value
+void Robot::fileCheckDouble(std::string val, double& org) {
+    try { org=std::stod(val); } //if value can be double return it
+    catch (std::exception& e) { org=org; }  //else return the passed default value
 }

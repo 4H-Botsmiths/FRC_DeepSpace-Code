@@ -65,7 +65,7 @@ public:
 
     //file io
     void fileUpdate(); //updates the params of this class
-    double fileCheckDouble(std::string val, double& org); //check if param is a double
+    void fileCheckDouble(std::string val, double& org); //check if param is a double
 
    private:
 	//joysticks
@@ -85,10 +85,16 @@ public:
     frc::Talon drive_SW { 3 };
     frc::MecanumDrive drive_train { drive_NW, drive_SW, drive_NE, drive_SE };
 
+    double drive_x_mult=1;
+    double drive_y_mult=1;
+    double drive_z_mult=1;
+
 	//other motors
     frc::Spark arm { 4 };
     double arm_speed_putting=0.3; //arm needs more power when it has a gear
     double arm_speed_getting=0.1; //arm needs less power when it has no gear
+    double arm_speed_endgame=0.3;
+    double arm_timer=1.5; //how long in seconds to wait for arm to retract
 
     //sensors
     //analogpotentiometer, 0 is port, 270 is range and -135 is offset

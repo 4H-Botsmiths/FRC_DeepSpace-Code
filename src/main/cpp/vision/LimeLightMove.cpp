@@ -8,6 +8,7 @@ void Robot::limelightMove() {
         Move(limelight_offset_horz*limelight_offset_horz_mult, 0, 0);
     }
     //drive untill centered (forwards backwards)
+    /*
     else if (!limelightCentered(limelight_value_enum::AREA)) {
         Move(0, limelight_area*limelight_area_mult, 0);
     }
@@ -17,4 +18,5 @@ void Robot::limelightMove() {
             //
         }
     }
+    */
 }
