@@ -27,7 +27,6 @@
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include <cscore.h>
-//#include <iostream>
 
 class Robot : public frc::TimedRobot {
 public:
@@ -46,29 +45,16 @@ public:
     double Deadzone(double v); //prevents jitters while not moving (applies default value)
     double Cap(double v, double r); //prevents speed going to high
     void Move(double x, double y, double z); //deals with polarity
-
-    //limelight variables
-    enum limelight_target_enum { //all possible targets we might want to align to
-		FEEDER_HATCH_GROUND,
-		FEEDER_BALL_GROUND_LEFT, FEEDER_BALL_UPPER_LEFT, FEEDER_HATCH_UPPER_LEFT,
-		FEEDER_BALL_GROUND_RIGHT, FEEDER_BALL_UPPER_RIGHT, FEEDER_HATCH_UPPER_RIGHT,
-		ROCKET_BALL_GROUND, ROCKET_BALL_UPPER, ROCKET_HATCH_GROUND, ROCKET_HATCH_UPPER,
-		CARGO_BALL_GROUND, CARGO_BALL_UPPER, CARGO_HATCH_GROUND, CARGO_HATCH_UPPER,
-	};
-
-	//NOTE: All low goal hatches has tape opens downwards "\ /", but the left feeder station has them opening upwards "/ \"
-    enum limelight_pattern_enum { HATCHES, GROUND, BALL, FEEDER_LEFT };
+    void Move(double x, double y, double z, double t); //move for a certain amounut of time
 
     //different things the limelight returns that can be check whether we are centered
     enum limelight_value_enum { HORZ, VERT, AREA, DIFF };
 
 	//limelight functions
-    void limelightUpdate(limelight_pattern_enum pattern, bool newpipe); //updates the table data
-    void limelightMove(limelight_target_enum target); //move based on limelight info
-    bool limelightCheck(limelight_target_enum target); //checks to see if the current data is from the correct pipe
+    void limelightUpdate(); //updates the table data
+    void limelightMove(); //move based on limelight info
+    bool limelightCheck(); //checks to see if the current data is from the correct pipe
     bool limelightCentered(limelight_value_enum value); //chgeck if certain param for limelight is centered
-    //get what pattern is associated with a given target
-    limelight_pattern_enum limelightConvert(limelight_target_enum target);
 
     //arm functions
     void armUpdate(); //grabs value of potentiometer
@@ -82,12 +68,6 @@ public:
     double fileCheckDouble(std::string val, double& org); //check if param is a double
 
    private:
-    //smartdashboard objects (unused)
-    frc::SendableChooser<std::string> m_chooser;
-    const std::string kAutoNameDefault="Default";
-    const std::string kAutoNameCustom="My Auto";
-    std::string m_autoSelected;
-
 	//joysticks
     frc::XboxController controller_left { 0 }; //driver
     frc::XboxController controller_right { 1 }; //aux
@@ -113,7 +93,7 @@ public:
     //sensors
     //analogpotentiometer, 0 is port, 270 is range and -135 is offset
     frc::AnalogPotentiometer arm_potentiometer { 0, 270.0f, -135.0f };
-    double arm_potentiometer_current=0.0f;
+    double arm_potentiometer_current=0;
     double arm_potentiometer_put=-120; //value to be to be considered putting a hatch
     double arm_potentiometer_get=120; //value to be considered grabbing a hatch
 
@@ -132,7 +112,7 @@ public:
 
     //limelight objects
 	std::shared_ptr<NetworkTable> limelight=nt::NetworkTableInstance::GetDefault().GetTable("limelight");
-    limelight_pattern_enum limelight_pipe; //makes sure the current pipeline is of the pattern we want
+
     //empty defines for current offsets
     double limelight_area=0;
     double limelight_skew=0;
@@ -164,8 +144,6 @@ public:
     //camera objects
     cs::UsbCamera camera_front;
     cs::UsbCamera camera_back;
-    cs::VideoSink camera_server;
-    bool camera_front_active=true;
 
     //file system objects
     std::string filesys_path="/home/lvuser/params.txt"; //path of the parameter file

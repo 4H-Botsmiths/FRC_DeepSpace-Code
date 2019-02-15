@@ -1,11 +1,6 @@
 #include "Robot.h"
 
-void Robot::limelightUpdate(Robot::limelight_pattern_enum pattern, bool newpipe) {
-    if (newpipe) { //dont change pipe unless needed to
-        limelight->PutNumber("pipeline", pattern); //makes sure we are checking for the correct tape layout
-        limelight_pipe=pattern; //makes sure we are using the correct pipeline
-    }
-
+void Robot::limelightUpdate() {
     //update values from limelight
     limelight_offset_horz=limelight->GetNumber("tx", 0.0); //middle of crosshair to center (X)
     limelight_offset_vert=limelight->GetNumber("ty", 0.0); //middle of crosshair to center (Y)

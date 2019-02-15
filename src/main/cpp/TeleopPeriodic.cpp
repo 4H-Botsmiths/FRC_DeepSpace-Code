@@ -22,48 +22,37 @@ void Robot::TeleopPeriodic() {
             Deadzone(controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand)),
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand))
         );
-        if (controller_left.GetAButtonPressed()) {
-            camera_server.SetSource(camera_front);
-        }
-        else if (controller_left.GetBButtonPressed()) {
-            camera_server.SetSource(camera_back);
-        }
-        if (controller_right.GetXButton()) {
-            //armPutHatch();
-            arm.Set(0.4);
-        }
-        else if (controller_right.GetBButton()) {
-            //armGetHatch();
-            arm.Set(-0.4);
-        }
-        else {
-            arm.Set(0);
-        }
+        //uncomment this when/if a potentiometer is added
+        //if (controller_right.GetXButtonPressed()) armPutHatch();
+        //else if (controller_right.GetBButtonReleased()) armGetHatch();
+        
+        if (controller_right.GetXButton()) arm.Set(0.4);
+        else if (controller_right.GetBButton()) arm.Set(-0.4);
+        else arm.Set(0);
+
         if (controller_right.GetAButtonPressed())
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
 
         if (controller_right.GetYButtonPressed()) phenumatic_endgame_safety++;
 
-        if (phenumatic_endgame_safety>=phenumatic_endgame_min) {
-            phenumatic_endgame.Set(frc::DoubleSolenoid::kForward);
-            phenumatic_ramp.Set(frc::DoubleSolenoid::kForward);
+        if (phenumatic_endgame_safety>=phenumatic_endgame_min) { //if the saftey has been tripped run endgame sequence
+            phenumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
+            phenumatic_ramp.Set(frc::DoubleSolenoid::kForward); //pushes out ramp
             frc::Timer tmp;
             tmp.Start();
-            while (!tmp.HasPeriodPassed(1.5)) {
-                arm.Set(-arm_speed_putting);
+            while (!tmp.HasPeriodPassed(1.5)) { //wait 1.5 seconds
+                arm.Set(-arm_speed_putting); //makes sure arm goes inside frame
             }
-            tmp.Stop();
-            arm.Set(0);
-            phenumatic_ramp.Set(frc::DoubleSolenoid::kReverse);
-            phenumatic_endgame_safety=0;
+            tmp.Stop(); //stop timer
+            arm.Set(0); //stop arm from moving
+            phenumatic_ramp.Set(frc::DoubleSolenoid::kReverse); //retract ramp piston
+            phenumatic_endgame_safety=0; //make it so endgame can be ran again if it doesnt work
         }
-        if (controller_right.GetBackButtonPressed()) {
+
+        if (controller_right.GetBackButtonPressed()) //raises lower arm (for debugging)
             phenumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
-        }
     }
     else {
-        //auto targetting
-        //for now, only one target will be assumed (hatch)
-        limelightMove(limelight_target_enum::ROCKET_HATCH_UPPER);
+        limelightMove(); //auto targeting
     }
 }
