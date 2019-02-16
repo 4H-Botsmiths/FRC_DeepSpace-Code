@@ -2,5 +2,7 @@
 
 void Robot::armGetHatch() {
     if (!armGettingHatch())
-        arm.Set(arm_speed_getting);
+        arm.Set(-arm_speed_getting);
+    arm_moving=true;
+    arm_started_front=true;
 }

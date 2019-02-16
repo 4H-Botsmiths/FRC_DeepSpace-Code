@@ -16,6 +16,12 @@ CONTROLLER_LEFT:
 */
 
 void Robot::TeleopPeriodic() {
+    frc::SmartDashboard::PutBoolean("is_getting", armGettingHatch());
+    frc::SmartDashboard::PutNumber("arm_raw", arm_potentiometer_current);
+    frc::SmartDashboard::PutBoolean("is_putting", armPuttingHatch());
+    frc::SmartDashboard::PutBoolean("is_moving", arm_moving);
+    frc::SmartDashboard::PutBoolean("started_front", arm_started_front);
+
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
     if (!controller_right.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
@@ -25,12 +31,19 @@ void Robot::TeleopPeriodic() {
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand))
         );
         //uncomment this when/if a potentiometer is added
-        //if (controller_right.GetXButtonPressed()) armPutHatch();
-        //else if (controller_right.GetBButtonReleased()) armGetHatch();
+        armUpdate();
+        if (!arm_moving) {
+            if (controller_right.GetXButtonPressed()) armPutHatch();
+            else if (controller_right.GetBButtonReleased()) armGetHatch();
+        }
+        else {
+            armContinue();
+        }
         
-        if (controller_right.GetXButton()) arm.Set(arm_speed_getting);
-        else if (controller_right.GetBButton()) arm.Set(-arm_speed_putting);
-        else arm.Set(0);
+        //uncomment this if the potentiometer breaks
+        //if (controller_right.GetXButton()) arm.Set(arm_speed_getting);
+        //else if (controller_right.GetBButton()) arm.Set(-arm_speed_putting);
+        //else arm.Set(0);
 
         if (controller_right.GetAButtonPressed())
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs

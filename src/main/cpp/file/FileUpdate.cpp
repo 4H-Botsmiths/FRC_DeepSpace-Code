@@ -72,6 +72,7 @@ void Robot::fileUpdate() {
             else if (name=="drive_z_offset") fileCheckDouble(val, drive_z_mult);
             else if (name=="arm_speed_endgame") fileCheckDouble(val, arm_speed_endgame);
             else if (name=="arm_timer") fileCheckDouble(val, arm_timer);
+            else if (name=="arm_potentiometer_mid") fileCheckDouble(val, arm_potentiometer_mid);
         }
         filesys.close();
     }

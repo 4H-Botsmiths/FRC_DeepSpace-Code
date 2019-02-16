@@ -11,7 +11,6 @@
 
 #include <array>
 #include <vector>
-#include <functional>
 #include <frc/Spark.h>
 #include <frc/Talon.h>
 #include <frc/Joystick.h>
@@ -62,6 +61,7 @@ public:
     void armPutHatch(); //flips state to place hatch
     bool armGettingHatch(); //returns true if arm is getting a hatch
     bool armPuttingHatch(); //returns true if arm is placing a hatch
+    void armContinue(); //keep moving the arm if it was already moving
 
     //file io
     void fileUpdate(); //updates the params of this class
@@ -94,14 +94,17 @@ public:
     double arm_speed_putting=0.3; //arm needs more power when it has a gear
     double arm_speed_getting=0.1; //arm needs less power when it has no gear
     double arm_speed_endgame=0.3;
-    double arm_timer=1.5; //how long in seconds to wait for arm to retract
+    double arm_timer=1.5; //how long in seconds to wait for arm to retract (endgame)
+    bool arm_moving=false;
+    bool arm_started_front=false; //stores what side arm started from
 
     //sensors
     //analogpotentiometer, 0 is port, 270 is range and -135 is offset
-    frc::AnalogPotentiometer arm_potentiometer { 0, 270.0f, -135.0f };
+    frc::AnalogPotentiometer arm_potentiometer { 0, 270, 0 };
     double arm_potentiometer_current=0;
     double arm_potentiometer_put=-120; //value to be to be considered putting a hatch
     double arm_potentiometer_get=120; //value to be considered grabbing a hatch
+    double arm_potentiometer_mid=0;
 
     //phenumatics
     frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
