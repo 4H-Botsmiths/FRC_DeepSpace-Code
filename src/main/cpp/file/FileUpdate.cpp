@@ -73,6 +73,7 @@ void Robot::fileUpdate() {
             else if (name=="arm_speed_endgame") fileCheckDouble(val, arm_speed_endgame);
             else if (name=="arm_timer") fileCheckDouble(val, arm_timer);
             else if (name=="arm_potentiometer_mid") fileCheckDouble(val, arm_potentiometer_mid);
+            else if (name=="limelight_put_speed") fileCheckDouble(val, limelight_put_speed);
         }
         filesys.close();
     }

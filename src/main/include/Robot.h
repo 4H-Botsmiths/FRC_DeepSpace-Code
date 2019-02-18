@@ -16,6 +16,7 @@
 #include <frc/Joystick.h>
 #include <frc/Solenoid.h>
 #include <frc/TimedRobot.h>
+#include <frc/AnalogTrigger.h>
 #include <frc/XboxController.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/drive/MecanumDrive.h>
@@ -47,7 +48,7 @@ public:
     void Move(double x, double y, double z, double t); //move for a certain amounut of time
 
     //different things the limelight returns that can be check whether we are centered
-    enum limelight_value_enum { HORZ, VERT, AREA, DIFF };
+    enum limelight_value_enum { HORZ, VERT, AREA, SKEW, DIFF };
 
 	//limelight functions
     void limelightUpdate(); //updates the table data
@@ -62,6 +63,8 @@ public:
     bool armGettingHatch(); //returns true if arm is getting a hatch
     bool armPuttingHatch(); //returns true if arm is placing a hatch
     void armContinue(); //keep moving the arm if it was already moving
+    void armToggle(); //toggles the state of the arm
+    void armConfirm(); //waits untill arm has fully flipped (blocking code)
 
     //file io
     void fileUpdate(); //updates the params of this class
@@ -98,13 +101,16 @@ public:
     bool arm_moving=false;
     bool arm_started_front=false; //stores what side arm started from
 
-    //sensors
+    //arm sensors
     //analogpotentiometer, 0 is port, 270 is range and -135 is offset
     frc::AnalogPotentiometer arm_potentiometer { 0, 270, 0 };
     double arm_potentiometer_current=0;
     double arm_potentiometer_put=-120; //value to be to be considered putting a hatch
     double arm_potentiometer_get=120; //value to be considered grabbing a hatch
     double arm_potentiometer_mid=0;
+
+    //when the arm passes the midpoint, this limit switch will be triggered
+    frc::AnalogTrigger arm_limit { 1 };
 
     //phenumatics
     frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
@@ -149,6 +155,11 @@ public:
     double limelight_tshort_mult=0;
     double limelight_tlong_mult=0;
     double limelight_tdiff_mult=0;
+
+    int limelight_stage=0; //how far along the limelight is in the auto tracking
+    double limelight_put_speed=0.2; //speed at which to place the hatch
+    double limelight_time=0; //distance to drive for (in seconds) to get to rocket
+    frc::Timer limelight_timer; //keeps track of whether or not its been enough time
 
     //camera objects
     cs::UsbCamera camera_front;

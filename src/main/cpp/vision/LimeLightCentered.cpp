@@ -10,6 +10,9 @@ bool Robot::limelightCentered(Robot::limelight_value_enum value) {
     else if (value==limelight_value_enum::AREA)
         return (limelight_area<limelight_area_acceptable &&
             limelight_area>-limelight_area_acceptable);
+    else if (value==limelight_value_enum::SKEW)
+        return (limelight_skew<limelight_skew_acceptable &&
+            limelight_skew>-limelight_skew_acceptable);
     else if (value==limelight_value_enum::DIFF)
         return (limelight_tdiff<limelight_tdiff_acceptable &&
             limelight_tdiff>-limelight_tdiff_acceptable);
