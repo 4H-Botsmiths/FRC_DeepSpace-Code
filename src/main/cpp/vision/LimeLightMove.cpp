@@ -6,35 +6,51 @@ void Robot::limelightMove() {
     limelightUpdate();
     //center rotationaly and horizontaly
     if (limelight_stage==0) {
-        if (!limelightCentered(limelight_value_enum::HORZ) || !limelightCentered(limelight_value_enum::SKEW)) {
+        if ((!limelightCentered(limelight_value_enum::HORZ) ||
+            !limelightCentered(limelight_value_enum::SKEW)) ||
+            limelight_stage_0_calibrating < limelight_stage_0_calibrating_wait
+            ) {
             Move(
                 limelight_offset_horz*limelight_offset_horz_mult,
                 0,
                 limelight_skew*limelight_skew_mult
             );
+            limelight_stage_0_centered=0;
+            std::cout << "TIMER: " << limelight_stage_0_calibrating << "\n";
+            limelight_stage_0_calibrating++;
         }
-        //dont enable stage 1 until stage 0 works
-        //else limelight_stage=1;
-    }
-    //calculate distance to rocket
-    if (limelight_stage==1) {
-        //calulates the time required to reach wall
-        limelight_time=limelight_area*limelight_area_mult;
-        armConfirm(); //wait for arm to flip
-        limelight_timer.Start(); //start timer
-        Move(0, limelight_put_speed, 0); //start moving
-        limelight_stage==2;
+        else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) {
+            limelight_stage_0_calibrating=0;
+            limelight_stage_0_centered=0;
+            limelight_stage=1;
+        }
+        else {
+            limelight_stage_0_calibrating=0;
+            limelight_stage_0_centered++;
+            if (limelight_stage_0_centered>=limelight_stage_0_centered_wait) {
+                limelight_stage_0_calibrating=0;
+                limelight_stage_0_centered=0;
+                limelight_stage=1;
+            }
+        }
     }
     //keep driving until time has passed
-    if (limelight_stage==2) {
-        if (!limelight_timer.HasPeriodPassed(limelight_time))
-            Move(0, limelight_put_speed, 0); //continue moving
-        else limelight_stage==3;
+    else if (limelight_stage==1) {
+        if (limelight_area<3)
+            Move(0, -limelight_put_speed, 0); //continue moving
+        else limelight_stage=2;
+    }
+    else if (limelight_stage==2) {
+        armConfirm(); //wait for arm to flip
+        limelight_stage=3;
     }
     //release hatch and reset vals
-    if (limelight_stage==3) {
+    else if (limelight_stage==3) {
+        Move(0, -limelight_put_speed, 0, 1.8);
         ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing);
-        limelight_stage=0; //reset stage
+        Move(0, limelight_put_speed, 0, 1);
+        armToggle();
+        limelight_stage=-1; //reset stage
         limelight->PutNumber("ledMode", 1); //turn off limelight lights
     }
 }

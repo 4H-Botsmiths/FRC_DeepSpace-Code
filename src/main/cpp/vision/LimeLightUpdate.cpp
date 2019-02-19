@@ -10,4 +10,8 @@ void Robot::limelightUpdate() {
     limelight_tshort=limelight->GetNumber("tshort", 0.0); //length of shorter side
     limelight_tlong=limelight->GetNumber("tlong", 0.0); //length of longer side
     limelight_tdiff=limelight_tlong-limelight_tshort; //difference between long and short sides
+
+    //make sure the skew has a usable polarity
+    if (limelight_skew<-45) limelight_skew+=90; //make limelight skew usable
+    limelight_skew*=-1;
 }

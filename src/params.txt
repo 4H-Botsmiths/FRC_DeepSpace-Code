@@ -8,17 +8,17 @@ drive_x_mult:1
 drive_y_mult:1
 drive_z_mult:1
 :
-arm_speed_putting:0.5
-arm_speed_getting:0.5
+arm_speed_putting:0.6
+arm_speed_getting:0.55
 arm_potentiometer_put:20
-arm_potentiometer_get:220
+arm_potentiometer_get:200
 arm_potentiometer_mid:95
 :
 limelight_area_acceptable:0.5
-limelight_skew_acceptable:0.5
+limelight_skew_acceptable:2;
 limelight_area_mult:0.1
-limelight_skew_mult:0.1
-limelight_put_speed:0.4
+limelight_skew_mult:0.05
+limelight_put_speed:0.25
 :
 : may need later
 :

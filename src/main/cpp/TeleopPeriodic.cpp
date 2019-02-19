@@ -16,14 +16,15 @@ CONTROLLER_LEFT:
 */
 
 void Robot::TeleopPeriodic() {
-    frc::SmartDashboard::PutNumber("skew", limelight->GetNumber("ts", 0));
-    frc::SmartDashboard::PutNumber("pot", arm_potentiometer_current);
+    limelightUpdate();
 
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
     if (!controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
         limelight->PutNumber("ledMode", 1); //turn off limelight lights
         limelight_stage=0;
+        limelight_stage_0_calibrating=0;
+        limelight_stage_0_centered=0;
         
         Move(
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kLeftHand)),
@@ -33,25 +34,11 @@ void Robot::TeleopPeriodic() {
         //uncomment this when/if a potentiometer is added
         armUpdate();
         if (!arm_moving) {
-            if (controller_left.GetBButtonPressed()) armToggle();
+            if (controller_right.GetBButtonPressed()) armToggle();
         }
         else {
             armContinue();
         }
-        /*
-        if (!arm_moving) {
-            if (controller_right.GetXButtonPressed()) armPutHatch();
-            else if (controller_right.GetBButtonReleased()) armGetHatch();
-        }
-        else {
-            armContinue();
-        }
-        */
-        
-        //uncomment this if the potentiometer breaks
-        //if (controller_right.GetXButton()) arm.Set(arm_speed_getting);
-        //else if (controller_right.GetBButton()) arm.Set(-arm_speed_putting);
-        //else arm.Set(0);
 
         if (controller_right.GetAButtonPressed())
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs

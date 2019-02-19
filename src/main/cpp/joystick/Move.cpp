@@ -11,7 +11,7 @@ void Robot::Move(double x, double y, double z, double t) {
     frc::Timer timer;
     timer.Start();
     while (!timer.HasPeriodPassed(t)) {
-        if (controller_right.GetTriggerAxis(controller_lefthand)>controller_deadzone)
+        if (controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone)
             Move(x, y, z);
         else break; //if the user lets go, stop moving
     }

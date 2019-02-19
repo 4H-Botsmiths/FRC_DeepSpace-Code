@@ -26,6 +26,8 @@
 #include <networktables/NetworkTableInstance.h>
 #include <frc/smartdashboard/SendableChooser.h>
 
+#include <frc/DigitalInput.h>
+
 #include <cscore.h>
 
 class Robot : public frc::TimedRobot {
@@ -110,7 +112,7 @@ public:
     double arm_potentiometer_mid=0;
 
     //when the arm passes the midpoint, this limit switch will be triggered
-    frc::AnalogTrigger arm_limit { 1 };
+    frc::DigitalInput arm_limit { 0 };
 
     //phenumatics
     frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
@@ -149,7 +151,7 @@ public:
 
     //modifiers that change how much the bot is moved during auto
     double limelight_area_mult=0.1;
-    double limelight_skew_mult=0.1;
+    double limelight_skew_mult=0.05;
     double limelight_offset_horz_mult=0.1;
     double limelight_offset_vert_mult=0.1;
     double limelight_tshort_mult=0;
@@ -159,7 +161,11 @@ public:
     int limelight_stage=0; //how far along the limelight is in the auto tracking
     double limelight_put_speed=0.2; //speed at which to place the hatch
     double limelight_time=0; //distance to drive for (in seconds) to get to rocket
-    frc::Timer limelight_timer; //keeps track of whether or not its been enough time
+    int limelight_stage_0_calibrating=0;
+    int limelight_stage_0_centered=0; //timer for stage 0
+    int limelight_stage_0_centered_wait=30; //wait x many frames
+    int limelight_stage_0_calibrating_wait=70; //wait x many frames
+    frc::Timer limelight_stage_1_timer; //keeps track of whether or not its been enough time
 
     //camera objects
     cs::UsbCamera camera_front;

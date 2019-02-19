@@ -1,7 +1,7 @@
 #include "Robot.h"
 
 void Robot::armContinue() {
-    if (arm_limit.GetTriggerState()) {
+    if (arm_limit.Get()) {
         arm_moving=false; //stop arm from moving
         arm.Set(0);
     }
