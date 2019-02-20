@@ -71,6 +71,7 @@ public:
     //file io
     void fileUpdate(); //updates the params of this class
     void fileCheckDouble(std::string val, double& org); //check if param is a double
+    void fileCheckInt(std::string val, int& org); //check if param is an int
 
    private:
 	//joysticks
@@ -159,17 +160,22 @@ public:
     double limelight_tdiff_mult=0;
 
     int limelight_stage=0; //how far along the limelight is in the auto tracking
-    double limelight_put_speed=0.2; //speed at which to place the hatch
-    double limelight_time=0; //distance to drive for (in seconds) to get to rocket
+
     int limelight_stage_0_calibrating=0;
     int limelight_stage_0_centered=0; //timer for stage 0
     int limelight_stage_0_centered_wait=30; //wait x many frames
     int limelight_stage_0_calibrating_wait=70; //wait x many frames
-    frc::Timer limelight_stage_1_timer; //keeps track of whether or not its been enough time
+
+    double limelight_stage_1_speed=0.2;
+
+    double limelight_stage_3_forward_speed=0.2;
+    double limelight_stage_3_forward_wait=1.8;
+    double limelight_stage_3_backward_speed=0.2;
+    double limelight_stage_3_backward_wait=1.0;
 
     //camera objects
-    cs::UsbCamera camera_front;
-    cs::UsbCamera camera_back;
+    //cs::UsbCamera camera_front;
+    //cs::UsbCamera camera_back;
 
     //file system objects
     std::string filesys_path="/home/lvuser/params.txt"; //path of the parameter file

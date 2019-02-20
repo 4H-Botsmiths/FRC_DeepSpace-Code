@@ -8,6 +8,16 @@ drive_x_mult:1
 drive_y_mult:1
 drive_z_mult:1
 :
+limelight_stage_0_centered_wait:25
+limelight_stage_0_calibrated_wait:50
+:
+limelight_stage_1_speed:0.2
+:
+limelight_stage_3_forward_speed:0.25
+limelight_stage_3_backward_speed:0.2
+limelight_stage_3_forward_wait:2.0
+limelight_stage_3_backward_wait:1.0
+:
 arm_speed_putting:0.6
 arm_speed_getting:0.55
 arm_potentiometer_put:20
@@ -18,16 +28,15 @@ limelight_area_acceptable:0.5
 limelight_skew_acceptable:2;
 limelight_area_mult:0.1
 limelight_skew_mult:0.05
-limelight_put_speed:0.25
+limelight_offset_horz_acceptable:0.5
+limelight_offset_horz_mult:0.15
 :
 : may need later
 :
-:limelight_offset_horz_acceptable:
 :limelight_offset_vert_acceptable:
 :limelight_tshort_acceptable:
 :limelight_tlong_acceptable:
 :limelight_tdiff_acceptable:
-:limelight_offset_horz_mult:
 :limelight_offset_vert_mult:
 :limelight_tshort_mult:
 :limelight_tlong_mult:

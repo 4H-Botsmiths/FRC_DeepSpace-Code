@@ -73,7 +73,13 @@ void Robot::fileUpdate() {
             else if (name=="arm_speed_endgame") fileCheckDouble(val, arm_speed_endgame);
             else if (name=="arm_timer") fileCheckDouble(val, arm_timer);
             else if (name=="arm_potentiometer_mid") fileCheckDouble(val, arm_potentiometer_mid);
-            else if (name=="limelight_put_speed") fileCheckDouble(val, limelight_put_speed);
+            else if (name=="limelight_stage_0_centered_wait") fileCheckInt(val, limelight_stage_0_centered_wait);
+            else if (name=="limelight_stage_0_calibrating_wait") fileCheckInt(val, limelight_stage_0_calibrating_wait);
+            else if (name=="limelight_stage_1_speed") fileCheckDouble(val, limelight_stage_1_speed);
+            else if (name=="limelight_stage_3_forward_speed") fileCheckDouble(val, limelight_stage_3_forward_speed);
+            else if (name=="limelight_stage_3_backward_speed") fileCheckDouble(val, limelight_stage_3_backward_speed);
+            else if (name=="limelight_stage_3_forward_wait") fileCheckDouble(val, limelight_stage_3_forward_wait);
+            else if (name=="limelight_stage_3_backward_wait") fileCheckDouble(val, limelight_stage_3_backward_wait);
         }
         filesys.close();
     }

@@ -16,7 +16,6 @@ void Robot::limelightMove() {
                 limelight_skew*limelight_skew_mult
             );
             limelight_stage_0_centered=0;
-            std::cout << "TIMER: " << limelight_stage_0_calibrating << "\n";
             limelight_stage_0_calibrating++;
         }
         else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) {
@@ -37,7 +36,7 @@ void Robot::limelightMove() {
     //keep driving until time has passed
     else if (limelight_stage==1) {
         if (limelight_area<3)
-            Move(0, -limelight_put_speed, 0); //continue moving
+            Move(0, -limelight_stage_1_speed, 0); //continue moving
         else limelight_stage=2;
     }
     else if (limelight_stage==2) {
@@ -46,9 +45,9 @@ void Robot::limelightMove() {
     }
     //release hatch and reset vals
     else if (limelight_stage==3) {
-        Move(0, -limelight_put_speed, 0, 1.8);
+        Move(0, -limelight_stage_3_forward_speed, 0, limelight_stage_3_forward_wait);
         ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing);
-        Move(0, limelight_put_speed, 0, 1);
+        Move(0, limelight_stage_3_backward_speed, 0, limelight_stage_3_backward_wait);
         armToggle();
         limelight_stage=-1; //reset stage
         limelight->PutNumber("ledMode", 1); //turn off limelight lights
