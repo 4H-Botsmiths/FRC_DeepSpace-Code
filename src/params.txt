@@ -33,13 +33,5 @@ limelight_offset_horz_mult:0.15
 :
 : may need later
 :
-:limelight_offset_vert_acceptable:
-:limelight_tshort_acceptable:
-:limelight_tlong_acceptable:
-:limelight_tdiff_acceptable:
-:limelight_offset_vert_mult:
-:limelight_tshort_mult:
-:limelight_tlong_mult:
-:limelight_tdiff_mult:
 :arm_speed_endgame:
 :arm_timer:

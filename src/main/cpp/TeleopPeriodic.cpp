@@ -4,27 +4,22 @@
 
 /* Controler layout:
 CONTROLLER_RIGHT:
-    LEFT_TRIGGER: auto align
     A_BUTTON: toggle hatch grabber
-    B_BUTTON: flip for feeder
-    X_BUTTON: flip for auto
+    B_BUTTON: toggle arm side
     Y_BUTTON: (x5) deploy ramps
 CONTROLLER_LEFT:
+    LEFT_TRIGGER: auto align
     X_AXIS_RIGHT: rotate
     X_AXIS_LEFT: strafe
     Y_AXIS_LEFT: forward/backward
 */
 
 void Robot::TeleopPeriodic() {
-    limelightUpdate();
-
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
     if (!controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
         limelight->PutNumber("ledMode", 1); //turn off limelight lights
         limelight_stage=0;
-        limelight_stage_0_calibrating=0;
-        limelight_stage_0_centered=0;
         
         Move(
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kLeftHand)),
@@ -33,12 +28,9 @@ void Robot::TeleopPeriodic() {
         );
         //uncomment this when/if a potentiometer is added
         armUpdate();
-        if (!arm_moving) {
+        if (!arm_moving)
             if (controller_right.GetBButtonPressed()) armToggle();
-        }
-        else {
-            armContinue();
-        }
+        else armContinue();
 
         if (controller_right.GetAButtonPressed())
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
@@ -50,7 +42,7 @@ void Robot::TeleopPeriodic() {
             phenumatic_ramp.Set(frc::DoubleSolenoid::kForward); //pushes out ramp
             frc::Timer tmp;
             tmp.Start();
-            while (!tmp.HasPeriodPassed(arm_timer)) { //wait 1.5 seconds
+            while (!tmp.HasPeriodPassed(arm_timer)) { //move arm down
                 arm.Set(-arm_speed_endgame); //makes sure arm goes inside frame
             }
             tmp.Stop(); //stop timer

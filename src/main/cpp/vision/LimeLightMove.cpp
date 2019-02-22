@@ -19,32 +19,26 @@ void Robot::limelightMove() {
             limelight_stage_0_calibrating++;
         }
         else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) {
-            limelight_stage_0_calibrating=0;
-            limelight_stage_0_centered=0;
             limelight_stage=1;
         }
         else {
             limelight_stage_0_calibrating=0;
             limelight_stage_0_centered++;
-            if (limelight_stage_0_centered>=limelight_stage_0_centered_wait) {
-                limelight_stage_0_calibrating=0;
-                limelight_stage_0_centered=0;
+            if (limelight_stage_0_centered>=limelight_stage_0_centered_wait)
                 limelight_stage=1;
-            }
         }
     }
     //keep driving until time has passed
     else if (limelight_stage==1) {
+        limelight_stage_0_calibrating=0;
+        limelight_stage_0_centered=0;
         if (limelight_area<3)
             Move(0, -limelight_stage_1_speed, 0); //continue moving
         else limelight_stage=2;
     }
+    //toggle grabber and reset vals
     else if (limelight_stage==2) {
-        armConfirm(); //wait for arm to flip
-        limelight_stage=3;
-    }
-    //release hatch and reset vals
-    else if (limelight_stage==3) {
+        armConfirm(false); //wait for arm to flip
         Move(0, -limelight_stage_3_forward_speed, 0, limelight_stage_3_forward_wait);
         ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing);
         Move(0, limelight_stage_3_backward_speed, 0, limelight_stage_3_backward_wait);

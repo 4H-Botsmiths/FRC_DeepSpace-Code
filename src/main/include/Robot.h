@@ -10,13 +10,11 @@
 #include <string>
 
 #include <array>
-#include <vector>
 #include <frc/Spark.h>
 #include <frc/Talon.h>
 #include <frc/Joystick.h>
-#include <frc/Solenoid.h>
 #include <frc/TimedRobot.h>
-#include <frc/AnalogTrigger.h>
+#include <frc/DigitalInput.h>
 #include <frc/XboxController.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/drive/MecanumDrive.h>
@@ -25,10 +23,6 @@
 #include <frc/smartdashboard/Smartdashboard.h>
 #include <networktables/NetworkTableInstance.h>
 #include <frc/smartdashboard/SendableChooser.h>
-
-#include <frc/DigitalInput.h>
-
-#include <cscore.h>
 
 class Robot : public frc::TimedRobot {
 public:
@@ -45,17 +39,16 @@ public:
     void ToggleSolenoid(frc::DoubleSolenoid& solenoid, bool& state); //invert a given solenoid
     double Deadzone(double v, double r); //prevents jitters while not moving
     double Deadzone(double v); //prevents jitters while not moving (applies default value)
-    double Cap(double v, double r); //prevents speed going to high
+    //double Cap(double v, double r); //prevents speed going to high
     void Move(double x, double y, double z); //deals with polarity
     void Move(double x, double y, double z, double t); //move for a certain amounut of time
 
     //different things the limelight returns that can be check whether we are centered
-    enum limelight_value_enum { HORZ, VERT, AREA, SKEW, DIFF };
+    enum limelight_value_enum { HORZ, AREA, SKEW };
 
 	//limelight functions
     void limelightUpdate(); //updates the table data
     void limelightMove(); //move based on limelight info
-    bool limelightCheck(); //checks to see if the current data is from the correct pipe
     bool limelightCentered(limelight_value_enum value); //chgeck if certain param for limelight is centered
 
     //arm functions
@@ -67,6 +60,7 @@ public:
     void armContinue(); //keep moving the arm if it was already moving
     void armToggle(); //toggles the state of the arm
     void armConfirm(); //waits untill arm has fully flipped (blocking code)
+    void armConfirm(bool gethatch); //armConfirm() but only moves if its not on desired side
 
     //file io
     void fileUpdate(); //updates the params of this class
@@ -78,7 +72,7 @@ public:
     frc::XboxController controller_left { 0 }; //driver
     frc::XboxController controller_right { 1 }; //aux
 
-    double controller_deadzone=0.1; //deadzone for triggers
+    double controller_deadzone=0.15; //deadzone for triggers
 
     //shortens up typing
     frc::GenericHID::JoystickHand controller_lefthand=frc::GenericHID::JoystickHand::kLeftHand;
@@ -97,8 +91,8 @@ public:
 
 	//other motors
     frc::Spark arm { 4 };
-    double arm_speed_putting=0.3; //arm needs more power when it has a gear
-    double arm_speed_getting=0.1; //arm needs less power when it has no gear
+    double arm_speed_putting=0.6; //arm needs more power when it has a gear
+    double arm_speed_getting=0.55; //arm needs less power when it has no gear
     double arm_speed_endgame=0.3;
     double arm_timer=1.5; //how long in seconds to wait for arm to retract (endgame)
     bool arm_moving=false;
@@ -108,9 +102,9 @@ public:
     //analogpotentiometer, 0 is port, 270 is range and -135 is offset
     frc::AnalogPotentiometer arm_potentiometer { 0, 270, 0 };
     double arm_potentiometer_current=0;
-    double arm_potentiometer_put=-120; //value to be to be considered putting a hatch
-    double arm_potentiometer_get=120; //value to be considered grabbing a hatch
-    double arm_potentiometer_mid=0;
+    double arm_potentiometer_put=20; //value to be to be considered putting a hatch
+    double arm_potentiometer_get=200; //value to be considered grabbing a hatch
+    double arm_potentiometer_mid=95;
 
     //when the arm passes the midpoint, this limit switch will be triggered
     frc::DigitalInput arm_limit { 0 };
@@ -134,48 +128,31 @@ public:
     //empty defines for current offsets
     double limelight_area=0;
     double limelight_skew=0;
-    double limelight_valid=0;
     double limelight_offset_horz=0;
-    double limelight_offset_vert=0;
-    double limelight_tshort=0;
-    double limelight_tlong=0;
-    double limelight_tdiff=0;
 
     //values must be within these ranges to be considered centered
-    double limelight_area_acceptable=0.5; 
-    double limelight_skew_acceptable=0.5;
+    double limelight_area_acceptable=0.5;
+    double limelight_skew_acceptable=2;
     double limelight_offset_horz_acceptable=0.5;
-    double limelight_offset_vert_acceptable=0.5;
-    double limelight_tshort_acceptable=0;
-    double limelight_tlong_acceptable=0;
-    double limelight_tdiff_acceptable=0; //difference between long and short
 
     //modifiers that change how much the bot is moved during auto
     double limelight_area_mult=0.1;
     double limelight_skew_mult=0.05;
-    double limelight_offset_horz_mult=0.1;
-    double limelight_offset_vert_mult=0.1;
-    double limelight_tshort_mult=0;
-    double limelight_tlong_mult=0;
-    double limelight_tdiff_mult=0;
+    double limelight_offset_horz_mult=0.15;
 
     int limelight_stage=0; //how far along the limelight is in the auto tracking
 
     int limelight_stage_0_calibrating=0;
     int limelight_stage_0_centered=0; //timer for stage 0
-    int limelight_stage_0_centered_wait=30; //wait x many frames
-    int limelight_stage_0_calibrating_wait=70; //wait x many frames
+    int limelight_stage_0_centered_wait=25; //wait x many frames
+    int limelight_stage_0_calibrating_wait=50; //wait x many frames
 
     double limelight_stage_1_speed=0.2;
 
-    double limelight_stage_3_forward_speed=0.2;
-    double limelight_stage_3_forward_wait=1.8;
+    double limelight_stage_3_forward_speed=0.25;
+    double limelight_stage_3_forward_wait=2.0;
     double limelight_stage_3_backward_speed=0.2;
     double limelight_stage_3_backward_wait=1.0;
-
-    //camera objects
-    //cs::UsbCamera camera_front;
-    //cs::UsbCamera camera_back;
 
     //file system objects
     std::string filesys_path="/home/lvuser/params.txt"; //path of the parameter file

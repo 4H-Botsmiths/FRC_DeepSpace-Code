@@ -1,7 +1,6 @@
 #include "Robot.h"
 
 #include <frc/WPILib.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 
 void Robot::RobotInit() {
 	//allows for camera access
