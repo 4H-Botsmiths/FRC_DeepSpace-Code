@@ -11,7 +11,7 @@ void Robot::limelightMove() {
             limelight_stage_0_calibrating < limelight_stage_0_calibrating_wait
             ) {
             Move(
-                limelight_offset_horz*limelight_offset_horz_mult,
+                Add(limelight_offset_horz*limelight_offset_horz_mult, limelight_stage_0_horz_min),
                 0,
                 limelight_skew*limelight_skew_mult
             );
