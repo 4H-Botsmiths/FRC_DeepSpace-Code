@@ -19,6 +19,7 @@ void Robot::limelightMove() {
             limelight_stage_0_calibrating++;
         }
         else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) {
+            limelightJitter();
             limelight_stage=1;
         }
         else {
