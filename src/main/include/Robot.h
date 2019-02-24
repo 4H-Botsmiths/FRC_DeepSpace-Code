@@ -42,6 +42,7 @@ public:
     //double Cap(double v, double r); //prevents speed going to high
     void Move(double x, double y, double z); //deals with polarity
     void Move(double x, double y, double z, double t); //move for a certain amounut of time
+    double Add(double i, double a);
 
     //different things the limelight returns that can be check whether we are centered
     enum limelight_value_enum { HORZ, AREA, SKEW };
