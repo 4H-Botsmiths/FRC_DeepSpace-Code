@@ -7,8 +7,7 @@ void Robot::limelightMove() {
     //center rotationaly and horizontaly
     if (limelight_stage==0) {
         if ((!limelightCentered(limelight_value_enum::HORZ) ||
-            !limelightCentered(limelight_value_enum::SKEW)) ||
-            limelight_stage_0_calibrating < limelight_stage_0_calibrating_wait
+            !limelightCentered(limelight_value_enum::SKEW))
             ) {
             Move(
                 limelight_offset_horz*limelight_offset_horz_mult,
