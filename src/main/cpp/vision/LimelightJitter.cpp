@@ -14,6 +14,5 @@ void Robot::limelightJitter() {
         )*!limelightCentered(limelight_value_enum::SKEW),
         limelight_jitter_move_time
     );
-    //move back by offset amount
-    //...
+    Move(0, 0, 0);
 }
