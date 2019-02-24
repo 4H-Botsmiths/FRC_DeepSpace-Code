@@ -28,8 +28,9 @@ void Robot::TeleopPeriodic() {
         );
         //uncomment this when/if a potentiometer is added
         armUpdate();
-        if (!arm_moving)
+        if (!arm_moving) {
             if (controller_right.GetBButtonPressed()) armToggle();
+        }
         else armContinue();
 
         if (controller_right.GetAButtonPressed())
