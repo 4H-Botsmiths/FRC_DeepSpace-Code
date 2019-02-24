@@ -16,7 +16,7 @@ void Robot::limelightMove() {
             );
             limelight_stage_0_calibrating++;
         }
-        else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) limelight_stage=1;
+        if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) limelight_stage=1;
     }
     //keep driving until time has passed
     else if (limelight_stage==1) {
