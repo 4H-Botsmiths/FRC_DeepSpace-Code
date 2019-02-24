@@ -15,8 +15,8 @@ void Robot::limelightMove() {
                 0,
                 limelight_skew*limelight_skew_mult
             );
-            limelight_stage_0_centered++;
         }
+        limelight_stage_0_centered++;
         if (limelight_stage_0_centered>=limelight_stage_0_centered_wait) limelight_stage=1;
     }
     //keep driving until time has passed
