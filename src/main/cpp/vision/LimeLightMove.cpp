@@ -5,6 +5,7 @@
 void Robot::limelightMove() {
     limelightUpdate();
     //center rotationaly and horizontaly
+    std::cout << "LL_HORZ:" << limelight_offset_horz << " LL_SKEW:" << limelight_skew << " LL_H_MULT:" << limelight_offset_horz*limelight_offset_horz_mult << " LL_S_MULT:" << limelight_skew*limelight_skew_mult << "\n";
     if (limelight_stage==0) {
         if ((!limelightCentered(limelight_value_enum::HORZ) ||
             !limelightCentered(limelight_value_enum::SKEW)) ||
@@ -15,14 +16,12 @@ void Robot::limelightMove() {
                 0,
                 limelight_skew*limelight_skew_mult
             );
-            limelight_stage_0_centered=0;
             limelight_stage_0_calibrating++;
         }
         else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) {
             limelight_stage=1;
         }
         else {
-            limelight_stage_0_calibrating=0;
             limelight_stage_0_centered++;
             if (limelight_stage_0_centered>=limelight_stage_0_centered_wait)
                 limelight_stage=1;
