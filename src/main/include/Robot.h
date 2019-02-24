@@ -42,6 +42,7 @@ public:
     //double Cap(double v, double r); //prevents speed going to high
     void Move(double x, double y, double z); //deals with polarity
     void Move(double x, double y, double z, double t); //move for a certain amounut of time
+    double Add(double i, double a);
 
     //different things the limelight returns that can be check whether we are centered
     enum limelight_value_enum { HORZ, AREA, SKEW };
@@ -50,6 +51,7 @@ public:
     void limelightUpdate(); //updates the table data
     void limelightMove(); //move based on limelight info
     bool limelightCentered(limelight_value_enum value); //chgeck if certain param for limelight is centered
+    void limelightJitter();
 
     //arm functions
     void armUpdate(); //grabs value of potentiometer
@@ -153,6 +155,11 @@ public:
     double limelight_stage_3_forward_wait=2.0;
     double limelight_stage_3_backward_speed=0.2;
     double limelight_stage_3_backward_wait=1.0;
+
+    double limelight_jitter_horz_add=0.15;
+    double limelight_jitter_skew_add=0.15;
+    double limelight_jitter_move_time=0.5;
+    double limelight_jitter_undo_time=0.5;
 
     //file system objects
     std::string filesys_path="/home/lvuser/params.txt"; //path of the parameter file

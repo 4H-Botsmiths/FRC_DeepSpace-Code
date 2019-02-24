@@ -36,6 +36,10 @@ void Robot::fileUpdate() {
             else if (name=="limelight_stage_3_backward_speed") fileCheckDouble(val, limelight_stage_3_backward_speed);
             else if (name=="limelight_stage_3_forward_wait") fileCheckDouble(val, limelight_stage_3_forward_wait);
             else if (name=="limelight_stage_3_backward_wait") fileCheckDouble(val, limelight_stage_3_backward_wait);
+            else if (name=="limelight_jitter_skew_add") fileCheckDouble(val, limelight_jitter_skew_add);
+            else if (name=="limelight_jitter_offset_horz_add") fileCheckDouble(val, limelight_jitter_horz_add);
+            else if (name=="limelight_jitter_move_time") fileCheckDouble(val, limelight_jitter_move_time);
+            else if (name=="limelight_jitter_undo_time") fileCheckDouble(val, limelight_jitter_undo_time);
         }
         filesys.close();
     }
