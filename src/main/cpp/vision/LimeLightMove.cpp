@@ -15,18 +15,9 @@ void Robot::limelightMove() {
                 0,
                 limelight_skew*limelight_skew_mult
             );
-            limelight_stage_0_centered=0;
-            limelight_stage_0_calibrating++;
-        }
-        else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) {
-            limelight_stage=1;
-        }
-        else {
-            limelight_stage_0_calibrating=0;
             limelight_stage_0_centered++;
-            if (limelight_stage_0_centered>=limelight_stage_0_centered_wait)
-                limelight_stage=1;
         }
+        if (limelight_stage_0_centered>=limelight_stage_0_centered_wait) limelight_stage=1;
     }
     //keep driving until time has passed
     else if (limelight_stage==1) {
