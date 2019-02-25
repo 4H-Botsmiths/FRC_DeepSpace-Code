@@ -7,26 +7,17 @@ void Robot::limelightMove() {
     //center rotationaly and horizontaly
     if (limelight_stage==0) {
         if ((!limelightCentered(limelight_value_enum::HORZ) ||
-            !limelightCentered(limelight_value_enum::SKEW)) ||
-            limelight_stage_0_calibrating < limelight_stage_0_calibrating_wait
+            !limelightCentered(limelight_value_enum::SKEW))
             ) {
             Move(
                 limelight_offset_horz*limelight_offset_horz_mult,
                 0,
                 limelight_skew*limelight_skew_mult
             );
-            limelight_stage_0_centered=0;
-            limelight_stage_0_calibrating++;
         }
-        else if (limelight_stage_0_calibrating>=limelight_stage_0_calibrating_wait) {
-            limelightJitter();
+        limelight_stage_0_centered++;
+        if (limelight_stage_0_centered>=limelight_stage_0_centered_wait) {
             limelight_stage=1;
-        }
-        else {
-            limelight_stage_0_calibrating=0;
-            limelight_stage_0_centered++;
-            if (limelight_stage_0_centered>=limelight_stage_0_centered_wait)
-                limelight_stage=1;
         }
     }
     //keep driving until time has passed
