@@ -17,6 +17,7 @@ void Robot::limelightMove() {
         }
         limelight_stage_0_centered++;
         if (limelight_stage_0_centered>=limelight_stage_0_centered_wait) {
+            limelightJitter();
             limelight_stage=1;
         }
     }
