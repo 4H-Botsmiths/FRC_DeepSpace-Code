@@ -32,7 +32,7 @@ void Robot::limelightMove() {
     else if (limelight_stage==1) {
         limelight_stage_0_calibrating=0;
         limelight_stage_0_centered=0;
-        if (limelight_area<3)
+        if (limelight_area<2.5)
             Move(0, -limelight_stage_1_speed, 0); //continue moving
         else limelight_stage=2;
     }

@@ -11,7 +11,7 @@ drive_z_mult:1
 limelight_stage_0_centered_wait:25
 limelight_stage_0_calibrated_wait:50
 :
-limelight_stage_1_speed:0.2
+limelight_stage_1_speed:0.3
 :
 limelight_stage_3_forward_speed:0.25
 limelight_stage_3_backward_speed:0.2
