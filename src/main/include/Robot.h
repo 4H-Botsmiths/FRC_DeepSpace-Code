@@ -144,7 +144,7 @@ public:
     int limelight_stage=0; //how far along the limelight is in the auto tracking
 
     double limelight_stage_0_skew_min=0.05; //minimal amount to move in any given direction
-    double limelight_stage_0_horz_min=0.05; //minimal amount to move in any given direction
+    double limelight_stage_0_horz_min=0.1; //minimal amount to move in any given direction
     int limelight_stage_0_calibrating=0;
     int limelight_stage_0_centered=0; //timer for stage 0
     int limelight_stage_0_centered_wait=25; //wait x many frames

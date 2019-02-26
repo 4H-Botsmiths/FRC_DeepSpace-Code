@@ -18,6 +18,8 @@ void Robot::TeleopPeriodic() {
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
     if (!controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
+        limelight_stage_0_calibrating=0;
+        limelight_stage_0_centered=0;
         limelight->PutNumber("ledMode", 1); //turn off limelight lights
         limelight_stage=0;
         
