@@ -17,7 +17,13 @@ CONTROLLER_LEFT:
 void Robot::TeleopPeriodic() {
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
-    if (!controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
+    if (controller_right.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
+        limelightMove(false); //auto targeting
+    }
+    else if (controller_right.GetTriggerAxis(controller_righthand)>controller_deadzone) {
+        limelightMove(true); //auto targeting
+    }
+    else {
         limelight_stage_0_calibrating=0;
         limelight_stage_0_centered=0;
         limelight->PutNumber("ledMode", 1); //turn off limelight lights
@@ -34,6 +40,16 @@ void Robot::TeleopPeriodic() {
             if (controller_right.GetBButtonPressed()) armToggle();
         }
         else armContinue();
+
+        if (controller_right.GetBumper(controller_lefthand)) {
+            arm.Set(arm_speed_getting);
+        }
+        else if (controller_right.GetBumper(controller_righthand)) {
+            arm.Set(-arm_speed_putting);
+        }
+        else {
+            arm.Set(0);
+        }
 
         if (controller_right.GetAButtonPressed())
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
@@ -58,9 +74,5 @@ void Robot::TeleopPeriodic() {
 
         if (controller_right.GetBackButtonPressed()) //raises lower arm (for debugging)
             phenumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
-    }
-    else {
-        limelight->PutNumber("ledMode", 3); //turn on limelight lights
-        limelightMove(); //auto targeting
     }
 }

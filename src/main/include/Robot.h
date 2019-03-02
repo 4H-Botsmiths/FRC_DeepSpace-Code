@@ -49,17 +49,20 @@ public:
 
 	//limelight functions
     void limelightUpdate(); //updates the table data
-    void limelightMove(); //move based on limelight info
+    void limelightMove(bool force); //move based on limelight info
     bool limelightCentered(limelight_value_enum value); //chgeck if certain param for limelight is centered
 
     //arm functions
     void armUpdate(); //grabs value of potentiometer
     void armGetHatch(); //flips state to get hatch
     void armPutHatch(); //flips state to place hatch
+    void armForceGetHatch(); //flips state to get hatch
+    void armForcePutHatch(); //flips state to place hatch
     bool armGettingHatch(); //returns true if arm is getting a hatch
     bool armPuttingHatch(); //returns true if arm is placing a hatch
     void armContinue(); //keep moving the arm if it was already moving
     void armToggle(); //toggles the state of the arm
+    void armForceToggle(); //toggles the state of the arm
     void armConfirm(); //waits untill arm has fully flipped (blocking code)
     void armConfirm(bool gethatch); //armConfirm() but only moves if its not on desired side
 
