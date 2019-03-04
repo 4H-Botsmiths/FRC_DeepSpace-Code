@@ -8,7 +8,8 @@ CONTROLLER_RIGHT:
     B_BUTTON: toggle arm side
     Y_BUTTON: (x5) deploy ramps
 CONTROLLER_LEFT:
-    LEFT_TRIGGER: auto align
+    LEFT_TRIGGER: auto align (with pot)
+    RIGHT_TRIGGER: auto align (force)
     X_AXIS_RIGHT: rotate
     X_AXIS_LEFT: strafe
     Y_AXIS_LEFT: forward/backward
@@ -17,10 +18,11 @@ CONTROLLER_LEFT:
 void Robot::TeleopPeriodic() {
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
-    if (controller_right.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
-        limelightMove(false); //auto targeting
-    }
-    else if (controller_right.GetTriggerAxis(controller_righthand)>controller_deadzone) {
+    
+    //if (controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
+    //    limelightMove(false); //auto targeting
+    //}
+    if (controller_left.GetTriggerAxis(controller_righthand)>controller_deadzone) {
         limelightMove(true); //auto targeting
     }
     else {
@@ -37,19 +39,19 @@ void Robot::TeleopPeriodic() {
         //uncomment this when/if a potentiometer is added
         armUpdate();
         if (!arm_moving) {
-            if (controller_right.GetBButtonPressed()) armToggle();
-        }
-        else armContinue();
+            //if (controller_right.GetBButtonPressed()) armToggle();
 
-        if (controller_right.GetBumper(controller_lefthand)) {
-            arm.Set(arm_speed_getting);
+            if (controller_right.GetBumper(controller_lefthand)) {
+                arm.Set(arm_speed_getting);
+            }
+            else if (controller_right.GetBumper(controller_righthand)) {
+                arm.Set(-arm_speed_putting);
+            }
+            else {
+                arm.Set(0);
+            }
         }
-        else if (controller_right.GetBumper(controller_righthand)) {
-            arm.Set(-arm_speed_putting);
-        }
-        else {
-            arm.Set(0);
-        }
+       else armContinue();
 
         if (controller_right.GetAButtonPressed())
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
@@ -72,7 +74,12 @@ void Robot::TeleopPeriodic() {
             phenumatic_endgame_safety=0; //make it so endgame can be ran again if it doesnt work
         }
 
-        if (controller_right.GetBackButtonPressed()) //raises lower arm (for debugging)
+        if (controller_right.GetBackButtonPressed()) { //raises lower arm (for debugging)
             phenumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
+        }
+
+        if (controller_right.GetXButtonPressed()) {
+            arm_moving=false;
+        }
     }
 }

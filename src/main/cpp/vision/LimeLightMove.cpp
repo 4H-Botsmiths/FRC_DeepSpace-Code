@@ -25,16 +25,18 @@ void Robot::limelightMove(bool force) {
         else {
             limelight_stage_0_calibrating=0;
             limelight_stage_0_centered++;
-            if (limelight_stage_0_centered>=limelight_stage_0_centered_wait)
+            if (limelight_stage_0_centered>=limelight_stage_0_centered_wait) {
                 limelight_stage=1;
+            }
         }
     }
     //keep driving until time has passed
     else if (limelight_stage==1) {
         limelight_stage_0_calibrating=0;
         limelight_stage_0_centered=0;
-        if (limelight_area<2.5)
+        if (limelight_area<2.5) {
             Move(0, -limelight_stage_1_speed, 0); //continue moving
+        }
         else limelight_stage=2;
     }
     //toggle grabber and reset vals
