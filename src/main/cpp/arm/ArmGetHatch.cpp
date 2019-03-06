@@ -11,5 +11,7 @@ void Robot::armGetHatch() {
 void Robot::armForceGetHatch() {
     frc::Timer tmp;
     tmp.Start();
-    while (!tmp.HasPeriodPassed(0.5)) arm.Set(arm_speed_putting);
+    while (!tmp.HasPeriodPassed(0.5)) {
+        arm.Set(arm_speed_putting);
+    }
 }

@@ -51,15 +51,22 @@ void Robot::TeleopPeriodic() {
                 arm.Set(0);
             }
         }
-       else armContinue();
+        else {
+           armContinue();
+        }
 
-        if (controller_right.GetAButtonPressed())
+        if (controller_right.GetAButtonPressed()) {
             ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
+        }
 
-        if (controller_right.GetYButtonPressed()) phenumatic_endgame_safety++;
+        if (controller_right.GetYButtonPressed()) {
+            phenumatic_endgame_safety++;
+        }
 
         if (phenumatic_endgame_safety>=phenumatic_endgame_min) { //if the saftey has been tripped run endgame sequence
-            if (armGettingHatch()) armConfirm(false);
+            if (armGettingHatch()) {
+                armConfirm(false);
+            }
 
             phenumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
             phenumatic_ramp.Set(frc::DoubleSolenoid::kForward); //pushes out ramp

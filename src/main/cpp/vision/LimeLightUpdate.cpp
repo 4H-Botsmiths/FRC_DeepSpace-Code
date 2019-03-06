@@ -7,6 +7,8 @@ void Robot::limelightUpdate() {
     limelight_skew=limelight->GetNumber("ts", 0.0); //angle of rotation
 
     //make sure the skew has a usable polarity
-    if (limelight_skew<-45) limelight_skew+=90; //make limelight skew usable
+    if (limelight_skew<-45) {
+        limelight_skew+=90; //make limelight skew usable
+    }
     limelight_skew*=-1;
 }
