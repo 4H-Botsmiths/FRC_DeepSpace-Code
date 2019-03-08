@@ -18,12 +18,8 @@ CONTROLLER_LEFT:
 void Robot::TeleopPeriodic() {
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
-    
-    //if (controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
-    //    limelightMove(false); //auto targeting
-    //}
-    if (controller_left.GetTriggerAxis(controller_righthand)>controller_deadzone) {
-        limelightMove(true); //auto targeting
+    if (controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
+        limelightMove(); //auto targeting
     }
     else {
         limelight_stage_0_calibrating=0;
@@ -36,23 +32,15 @@ void Robot::TeleopPeriodic() {
             Deadzone(controller_left.GetY(frc::GenericHID::JoystickHand::kLeftHand)),
             Deadzone(controller_left.GetX(frc::GenericHID::JoystickHand::kRightHand))
         );
-        //uncomment this when/if a potentiometer is added
-        armUpdate();
-        if (!arm_moving) {
-            //if (controller_right.GetBButtonPressed()) armToggle();
 
-            if (controller_right.GetBumper(controller_lefthand)) {
-                arm.Set(arm_speed_getting);
-            }
-            else if (controller_right.GetBumper(controller_righthand)) {
-                arm.Set(-arm_speed_putting);
-            }
-            else {
-                arm.Set(0);
-            }
+        if (controller_right.GetBumper(controller_lefthand)) {
+            arm.Set(arm_speed_getting);
+        }
+        else if (controller_right.GetBumper(controller_righthand)) {
+            arm.Set(-arm_speed_putting);
         }
         else {
-           armContinue();
+            arm.Set(0);
         }
 
         if (controller_right.GetAButtonPressed()) {
@@ -64,9 +52,6 @@ void Robot::TeleopPeriodic() {
         }
 
         if (phenumatic_endgame_safety>=phenumatic_endgame_min) { //if the saftey has been tripped run endgame sequence
-            if (armGettingHatch()) {
-                armConfirm(false);
-            }
 
             phenumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
             phenumatic_ramp.Set(frc::DoubleSolenoid::kForward); //pushes out ramp
@@ -83,10 +68,6 @@ void Robot::TeleopPeriodic() {
 
         if (controller_right.GetBackButtonPressed()) { //raises lower arm (for debugging)
             phenumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
-        }
-
-        if (controller_right.GetXButtonPressed()) {
-            arm_moving=false;
         }
     }
 }

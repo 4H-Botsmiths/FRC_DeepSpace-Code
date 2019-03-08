@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void Robot::limelightMove(bool force) {
+void Robot::limelightMove() {
     limelightUpdate();
     limelight->PutNumber("ledMode", 3); //turn on limelight lights
     //center rotationaly and horizontaly
@@ -41,13 +41,8 @@ void Robot::limelightMove(bool force) {
     }
     //toggle grabber and reset vals
     else if (limelight_stage==2) {
-        if (force) {
-            armForcePutHatch();
-        }
-        else {
-            armConfirm(false);
-        }
-        
+        armMove(0, 0);
+
         Move(0, -limelight_stage_3_forward_speed, 0, limelight_stage_3_forward_wait);
         ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing);
         Move(0, limelight_stage_3_backward_speed, 0, limelight_stage_3_backward_wait);
