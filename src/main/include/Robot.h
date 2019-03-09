@@ -91,17 +91,6 @@ public:
     bool arm_moving=false;
     bool arm_started_front=false; //stores what side arm started from
 
-    //arm sensors
-    //analogpotentiometer, 0 is port, 270 is range and -135 is offset
-    //frc::AnalogPotentiometer arm_potentiometer { 0, 270, 0 };
-    //double arm_potentiometer_current=0;
-    //double arm_potentiometer_put=20; //value to be to be considered putting a hatch
-    //double arm_potentiometer_get=200; //value to be considered grabbing a hatch
-    //double arm_potentiometer_mid=95;
-
-    //when the arm passes the midpoint, this limit switch will be triggered
-    frc::DigitalInput arm_limit { 0 };
-
     //phenumatics
     frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
     bool phenumatic_grabber_grabbing=false;
