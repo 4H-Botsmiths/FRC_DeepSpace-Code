@@ -93,7 +93,7 @@ public:
 
     //phenumatics
     frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
-    bool phenumatic_grabber_grabbing=false;
+    bool phenumatic_grabber_grabbing=true;
 
     frc::DoubleSolenoid phenumatic_ramp { 2, 3 }; //lowers arm and opens ramps at endgame
 	bool phenumatic_ramp_active=false;

@@ -20,9 +20,6 @@ limelight_stage_3_backward_wait:1.0
 :
 arm_speed_putting:0.7
 arm_speed_getting:0.65
-arm_potentiometer_put:50
-arm_potentiometer_get:175
-arm_potentiometer_mid:95
 :
 limelight_area_acceptable:0.5
 limelight_skew_acceptable:2;
