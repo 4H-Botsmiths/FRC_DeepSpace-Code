@@ -5,8 +5,9 @@ void Robot::armMove(double speed, double time) {
     tmp.Start();
     while(!tmp.HasPeriodPassed(time)) {
         if (controller_left.GetXButton()) {
-            break;
+            break; //make sure that the user can press "x" to unstick blocking code
         }
         arm.Set(speed);
     }
+    arm.Set(0);
 }

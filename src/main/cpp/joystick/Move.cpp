@@ -19,6 +19,4 @@ void Robot::Move(double x, double y, double z, double t) {
             break; //if the user lets go, stop moving
         }
     }
-    timer.Stop();
-    timer.~Timer(); //kills timer
 }
