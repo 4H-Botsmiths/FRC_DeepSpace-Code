@@ -44,7 +44,7 @@ void Robot::TeleopPeriodic() {
         }
 
         if (controller_right.GetAButtonPressed()) {
-            ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing); //grabs
+            ToggleSolenoid(phenumatic_grabber); //grabs
         }
 
         if (controller_right.GetYButtonPressed()) {
@@ -66,7 +66,7 @@ void Robot::TeleopPeriodic() {
         }
 
         if (controller_right.GetBackButtonPressed()) { //raises lower arm (resets arm)
-            armMove(0.4, 0.6);
+            armMove(0.55, 0.75);
             phenumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
         }
     }

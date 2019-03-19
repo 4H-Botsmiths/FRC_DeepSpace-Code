@@ -41,10 +41,10 @@ void Robot::limelightMove() {
     }
     //toggle grabber and reset vals
     else if (limelight_stage==2) {
-        armMove(0, 0);
+        armMove(0.6, 0.9);
 
         Move(0, -limelight_stage_3_forward_speed, 0, limelight_stage_3_forward_wait);
-        ToggleSolenoid(phenumatic_grabber, phenumatic_grabber_grabbing);
+        ToggleSolenoid(phenumatic_grabber);
         Move(0, limelight_stage_3_backward_speed, 0, limelight_stage_3_backward_wait);
         limelight_stage=-1; //reset stage
         limelight->PutNumber("ledMode", 1); //turn off limelight lights

@@ -36,7 +36,8 @@ public:
     void TestPeriodic() override;
 
 	//helper functions
-    void ToggleSolenoid(frc::DoubleSolenoid& solenoid, bool& state); //invert a given solenoid
+    //void ToggleSolenoid(frc::DoubleSolenoid& solenoid, bool& state); //invert a given solenoid
+    void ToggleSolenoid(frc::DoubleSolenoid& solenoid); //invert a given solenoid
     double Deadzone(double v, double r); //prevents jitters while not moving
     double Deadzone(double v); //prevents jitters while not moving (applies default value)
     //double Cap(double v, double r); //prevents speed going to high
