@@ -41,7 +41,7 @@ void Robot::limelightMove() {
     }
     //toggle grabber and reset vals
     else if (limelight_stage==2) {
-        armMove(0.6, 0.9);
+        armMove(0.6, 0.75);
 
         Move(0, -limelight_stage_3_forward_speed, 0, limelight_stage_3_forward_wait);
         ToggleSolenoid(phenumatic_grabber);
