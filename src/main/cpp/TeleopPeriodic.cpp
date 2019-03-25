@@ -52,7 +52,7 @@ void Robot::TeleopPeriodic() {
         }
 
         if (controller_right.GetYButtonPressed()) {
-            phenumatic_endgame_safety++;
+            phenumatic_endgame_safety++; //add 1 to safety counter
         }
 
         if (phenumatic_endgame_safety>=phenumatic_endgame_min) { //if the saftey has been tripped run endgame sequence
