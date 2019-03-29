@@ -34,7 +34,7 @@ void Robot::limelightMove() {
     else if (limelight_stage==1) {
         limelight_stage_0_calibrating=0;
         limelight_stage_0_centered=0;
-        if (limelight_area<2.5) {
+        if (limelight_area<limelight_skew_acceptable) {
             Move(0, -limelight_stage_1_speed, 0); //continue moving
         }
         else limelight_stage=2;
@@ -43,9 +43,9 @@ void Robot::limelightMove() {
     else if (limelight_stage==2) {
         armMove(0.6, 0.9);
 
-        Move(0, -limelight_stage_3_forward_speed, 0, limelight_stage_3_forward_wait);
+        Move(0, -limelight_stage_2_forward_speed, 0, limelight_stage_2_forward_wait);
         pneumatic_grabber.Set(frc::DoubleSolenoid::Value::kReverse);
-        Move(0, limelight_stage_3_backward_speed, 0, limelight_stage_3_backward_wait);
+        Move(0, limelight_stage_2_backward_speed, 0, limelight_stage_2_backward_wait);
         limelight_stage=-1; //reset stage
         limelight->PutNumber("ledMode", 1); //turn off limelight lights
     }

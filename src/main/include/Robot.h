@@ -88,6 +88,10 @@ public:
     double arm_speed_putting=0.6; //arm needs more power when it has a gear
     double arm_speed_getting=0.55; //arm needs less power when it has no gear
     double arm_speed_endgame=0.3;
+
+    double arm_popup_speed=0.55;
+    double arm_popup_wait=0.75;
+
     double arm_timer=1.5; //how long in seconds to wait for arm to retract (endgame)
     bool arm_moving=false;
     bool arm_started_front=false; //stores what side arm started from
@@ -115,7 +119,7 @@ public:
 
     //values must be within these ranges to be considered centered
     double limelight_area_acceptable=0.5;
-    double limelight_skew_acceptable=2;
+    double limelight_skew_acceptable=2.5;
     double limelight_offset_horz_acceptable=0.5;
 
     //modifiers that change how much the bot is moved during auto
@@ -134,10 +138,10 @@ public:
 
     double limelight_stage_1_speed=0.2;
 
-    double limelight_stage_3_forward_speed=0.25;
-    double limelight_stage_3_forward_wait=2.0;
-    double limelight_stage_3_backward_speed=0.2;
-    double limelight_stage_3_backward_wait=1.0;
+    double limelight_stage_2_forward_speed=0.25;
+    double limelight_stage_2_forward_wait=2.0;
+    double limelight_stage_2_backward_speed=0.2;
+    double limelight_stage_2_backward_wait=1.0;
 
     //file system objects
     std::string filesys_path="/home/lvuser/params.txt"; //path of the parameter file

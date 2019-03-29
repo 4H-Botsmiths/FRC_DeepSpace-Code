@@ -29,10 +29,12 @@ void Robot::fileUpdate() {
             else if (name=="limelight_stage_0_centered_wait") { fileCheckInt(val, limelight_stage_0_centered_wait); }
             else if (name=="limelight_stage_0_calibrating_wait") { fileCheckInt(val, limelight_stage_0_calibrating_wait); }
             else if (name=="limelight_stage_1_speed") { fileCheckDouble(val, limelight_stage_1_speed); }
-            else if (name=="limelight_stage_3_forward_speed") { fileCheckDouble(val, limelight_stage_3_forward_speed); }
-            else if (name=="limelight_stage_3_backward_speed") { fileCheckDouble(val, limelight_stage_3_backward_speed); }
-            else if (name=="limelight_stage_3_forward_wait") { fileCheckDouble(val, limelight_stage_3_forward_wait); }
-            else if (name=="limelight_stage_3_backward_wait") { fileCheckDouble(val, limelight_stage_3_backward_wait); }
+            else if (name=="limelight_stage_2_forward_speed") { fileCheckDouble(val, limelight_stage_2_forward_speed); }
+            else if (name=="limelight_stage_2_backward_speed") { fileCheckDouble(val, limelight_stage_2_backward_speed); }
+            else if (name=="limelight_stage_2_forward_wait") { fileCheckDouble(val, limelight_stage_2_forward_wait); }
+            else if (name=="limelight_stage_2_backward_wait") { fileCheckDouble(val, limelight_stage_2_backward_wait); }
+            else if (name=="arm_popup_speed") { fileCheckDouble(val, arm_popup_speed); }
+            else if (name=="arm_popup_wait") { fileCheckDouble(val, arm_popup_wait); }
         }
         filesys.close();
     }

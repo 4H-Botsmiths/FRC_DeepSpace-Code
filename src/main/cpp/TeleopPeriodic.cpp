@@ -70,7 +70,7 @@ void Robot::TeleopPeriodic() {
         }
 
         if (controller_right.GetBackButtonPressed()) { //raises lower arm (resets arm)
-            armMove(0.55, 0.75);
+            armMove(arm_popup_speed, arm_popup_wait);
             pneumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
         }
         else if (controller_right.GetStartButtonPressed()) { //put arm in frame (start defense)

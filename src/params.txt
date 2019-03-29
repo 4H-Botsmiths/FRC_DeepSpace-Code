@@ -13,10 +13,10 @@ limelight_stage_0_calibrated_wait:50
 :
 limelight_stage_1_speed:0.3
 :
-limelight_stage_3_forward_speed:0.25
-limelight_stage_3_backward_speed:0.2
-limelight_stage_3_forward_wait:2.0
-limelight_stage_3_backward_wait:1.0
+limelight_stage_2_forward_speed:0.25
+limelight_stage_2_backward_speed:0.2
+limelight_stage_2_forward_wait:2.0
+limelight_stage_2_backward_wait:1.0
 :
 arm_speed_putting:0.7
 arm_speed_getting:0.65
