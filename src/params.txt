@@ -22,7 +22,7 @@ arm_speed_putting:0.7
 arm_speed_getting:0.65
 :
 limelight_area_acceptable:0.5
-limelight_skew_acceptable:2;
+limelight_skew_acceptable:2.5
 limelight_area_mult:0.1
 limelight_skew_mult:0.02
 limelight_offset_horz_acceptable:0.5

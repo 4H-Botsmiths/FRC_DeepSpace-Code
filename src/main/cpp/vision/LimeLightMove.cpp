@@ -41,7 +41,7 @@ void Robot::limelightMove() {
     }
     //toggle grabber and reset vals
     else if (limelight_stage==2) {
-        armMove(0.6, 0.9);
+        armMove(limelight_stage_2_arm_speed, limelight_stage_2_arm_wait);
 
         Move(0, -limelight_stage_2_forward_speed, 0, limelight_stage_2_forward_wait);
         pneumatic_grabber.Set(frc::DoubleSolenoid::Value::kReverse);

@@ -85,8 +85,8 @@ public:
 
 	//other motors
     frc::Spark arm { 4 };
-    double arm_speed_putting=0.6; //arm needs more power when it has a gear
-    double arm_speed_getting=0.55; //arm needs less power when it has no gear
+    double arm_speed_putting=0.7; //arm needs more power when it has a gear
+    double arm_speed_getting=0.65; //arm needs less power when it has no gear
     double arm_speed_endgame=0.3;
 
     double arm_popup_speed=0.55;
@@ -124,7 +124,7 @@ public:
 
     //modifiers that change how much the bot is moved during auto
     double limelight_area_mult=0.1;
-    double limelight_skew_mult=0.05;
+    double limelight_skew_mult=0.02;
     double limelight_offset_horz_mult=0.15;
 
     int limelight_stage=0; //how far along the limelight is in the auto tracking
@@ -136,12 +136,14 @@ public:
     int limelight_stage_0_centered_wait=25; //wait x many frames
     int limelight_stage_0_calibrating_wait=50; //wait x many frames
 
-    double limelight_stage_1_speed=0.2;
+    double limelight_stage_1_speed=0.3;
 
     double limelight_stage_2_forward_speed=0.25;
     double limelight_stage_2_forward_wait=2.0;
     double limelight_stage_2_backward_speed=0.2;
     double limelight_stage_2_backward_wait=1.0;
+    double limelight_stage_2_arm_speed=0.6;
+    double limelight_stage_2_arm_wait=0.9;
 
     //file system objects
     std::string filesys_path="/home/lvuser/params.txt"; //path of the parameter file
