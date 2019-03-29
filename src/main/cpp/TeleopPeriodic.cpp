@@ -18,6 +18,7 @@ CONTROLLER_LEFT:
 void Robot::TeleopPeriodic() {
     //if left trigger is being held, switch to auto tracking, human input will be ignored
     //releasing left trigger will restore control and turn off auto tracking
+
     if (controller_left.GetTriggerAxis(controller_lefthand)>controller_deadzone) {
         limelightMove(); //auto targeting
     }
@@ -43,12 +44,15 @@ void Robot::TeleopPeriodic() {
             arm.Set(0);
         }
 
-        if (controller_right.GetAButtonPressed()) {
-            ToggleSolenoid(phenumatic_grabber); //grabs
+        if (controller_right.GetBButton()) {
+            phenumatic_grabber.Set(frc::DoubleSolenoid::Value::kForward); //force close grabber
+        }
+        else if (controller_right.GetAButtonPressed()) {
+            ToggleSolenoid(phenumatic_grabber); //toggle grabber
         }
 
         if (controller_right.GetYButtonPressed()) {
-            phenumatic_endgame_safety++;
+            phenumatic_endgame_safety++; //add 1 to safety counter
         }
 
         if (phenumatic_endgame_safety>=phenumatic_endgame_min) { //if the saftey has been tripped run endgame sequence
@@ -68,6 +72,9 @@ void Robot::TeleopPeriodic() {
         if (controller_right.GetBackButtonPressed()) { //raises lower arm (resets arm)
             armMove(0.55, 0.75);
             phenumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
+        }
+        else if (controller_right.GetStartButtonPressed()) { //put arm in frame (start defense)
+            phenumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
         }
     }
 }
