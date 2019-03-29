@@ -44,7 +44,7 @@ void Robot::limelightMove() {
         armMove(0.6, 0.9);
 
         Move(0, -limelight_stage_3_forward_speed, 0, limelight_stage_3_forward_wait);
-        phenumatic_grabber.Set(frc::DoubleSolenoid::Value::kReverse);
+        pneumatic_grabber.Set(frc::DoubleSolenoid::Value::kReverse);
         Move(0, limelight_stage_3_backward_speed, 0, limelight_stage_3_backward_wait);
         limelight_stage=-1; //reset stage
         limelight->PutNumber("ledMode", 1); //turn off limelight lights

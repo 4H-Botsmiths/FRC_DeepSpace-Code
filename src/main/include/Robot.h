@@ -92,18 +92,18 @@ public:
     bool arm_moving=false;
     bool arm_started_front=false; //stores what side arm started from
 
-    //phenumatics
-    frc::DoubleSolenoid phenumatic_grabber { 0, 1 }; //grabs hatches
-    bool phenumatic_grabber_grabbing=true;
+    //pneumatics
+    frc::DoubleSolenoid pneumatic_grabber { 0, 1 }; //grabs hatches
+    bool pneumatic_grabber_grabbing=true;
 
-    frc::DoubleSolenoid phenumatic_ramp { 2, 3 }; //lowers arm and opens ramps at endgame
-	bool phenumatic_ramp_active=false;
+    frc::DoubleSolenoid pneumatic_ramp { 2, 3 }; //lowers arm and opens ramps at endgame
+	bool pneumatic_ramp_active=false;
 
-    frc::DoubleSolenoid phenumatic_endgame { 4, 5 }; //lowers arm and opens ramps at endgame
-	bool phenumatic_endgame_active=false;
+    frc::DoubleSolenoid pneumatic_endgame { 4, 5 }; //lowers arm and opens ramps at endgame
+	bool pneumatic_endgame_active=false;
 
-    int phenumatic_endgame_min=5; //min amount to press safety to deploy
-    int phenumatic_endgame_safety=0; //makes sure that ramps dont deploy on accident
+    int pneumatic_endgame_min=5; //min amount to press safety to deploy
+    int pneumatic_endgame_safety=0; //makes sure that ramps dont deploy on accident
 
     //limelight objects
 	std::shared_ptr<NetworkTable> limelight=nt::NetworkTableInstance::GetDefault().GetTable("limelight");

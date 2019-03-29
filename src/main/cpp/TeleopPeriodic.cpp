@@ -45,19 +45,19 @@ void Robot::TeleopPeriodic() {
         }
 
         if (controller_right.GetBButton()) {
-            phenumatic_grabber.Set(frc::DoubleSolenoid::Value::kForward); //force close grabber
+            pneumatic_grabber.Set(frc::DoubleSolenoid::Value::kForward); //force close grabber
         }
         else if (controller_right.GetAButtonPressed()) {
-            ToggleSolenoid(phenumatic_grabber); //toggle grabber
+            ToggleSolenoid(pneumatic_grabber); //toggle grabber
         }
 
         if (controller_right.GetYButtonPressed()) {
-            phenumatic_endgame_safety++; //add 1 to safety counter
+            pneumatic_endgame_safety++; //add 1 to safety counter
         }
 
-        if (phenumatic_endgame_safety>=phenumatic_endgame_min) { //if the saftey has been tripped run endgame sequence
-            phenumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
-            phenumatic_ramp.Set(frc::DoubleSolenoid::kForward); //pushes out ramp
+        if (pneumatic_endgame_safety>=pneumatic_endgame_min) { //if the saftey has been tripped run endgame sequence
+            pneumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
+            pneumatic_ramp.Set(frc::DoubleSolenoid::kForward); //pushes out ramp
             frc::Timer tmp;
             tmp.Start();
             while (!tmp.HasPeriodPassed(arm_timer)) { //move arm down
@@ -65,16 +65,16 @@ void Robot::TeleopPeriodic() {
             }
             tmp.Stop(); //stop timer
             arm.Set(0); //stop arm from moving
-            phenumatic_ramp.Set(frc::DoubleSolenoid::kReverse); //retract ramp piston
-            phenumatic_endgame_safety=0; //make it so endgame can be ran again if it doesnt work
+            pneumatic_ramp.Set(frc::DoubleSolenoid::kReverse); //retract ramp piston
+            pneumatic_endgame_safety=0; //make it so endgame can be ran again if it doesnt work
         }
 
         if (controller_right.GetBackButtonPressed()) { //raises lower arm (resets arm)
             armMove(0.55, 0.75);
-            phenumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
+            pneumatic_endgame.Set(frc::DoubleSolenoid::kReverse);
         }
         else if (controller_right.GetStartButtonPressed()) { //put arm in frame (start defense)
-            phenumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
+            pneumatic_endgame.Set(frc::DoubleSolenoid::kForward); //retracts lower arm
         }
     }
 }
