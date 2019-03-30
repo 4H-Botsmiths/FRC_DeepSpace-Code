@@ -1,34 +1,28 @@
 : All lines must contain a ":" character
 : Any line that doesnt contain a recognizable variable is ignored
 :
-: constantly being used:
+arm_popup_speed:0.6
+arm_popup_wait:0.9
 :
-controller_deadzone:0.15
-drive_x_mult:1
-drive_y_mult:1
-drive_z_mult:1
+:limelight_stage_0_centered_wait:25
+:limelight_stage_0_calibrated_wait:50
 :
-limelight_stage_0_centered_wait:25
-limelight_stage_0_calibrated_wait:50
+:limelight_stage_1_speed:0.3
 :
-limelight_stage_1_speed:0.3
-:
-limelight_stage_2_forward_speed:0.25
-limelight_stage_2_backward_speed:0.2
-limelight_stage_2_forward_wait:2.0
-limelight_stage_2_backward_wait:1.0
+:limelight_stage_2_forward_speed:0.25
+:limelight_stage_2_backward_speed:0.2
+:limelight_stage_2_forward_wait:2.0
+:limelight_stage_2_backward_wait:1.0
 :
 arm_speed_putting:0.7
 arm_speed_getting:0.65
 :
-limelight_area_acceptable:0.5
-limelight_skew_acceptable:2.5
-limelight_area_mult:0.1
-limelight_skew_mult:0.02
-limelight_offset_horz_acceptable:0.5
-limelight_offset_horz_mult:0.15
-:
-: may need later
+:limelight_area_acceptable:0.5
+:limelight_skew_acceptable:2.5
+:limelight_area_mult:0.1
+:limelight_skew_mult:0.02
+:limelight_offset_horz_acceptable:0.5
+:limelight_offset_horz_mult:0.15
 :
 :arm_speed_endgame:
 :arm_timer:
